@@ -170,38 +170,6 @@ public class FileImporter {
 
     private void importSkeletons() throws SQLException {
 
-        int prevId = -1;
-
-        try {
-            query1 = "INSERT INTO skeletons VALUES(?,?,?)";
-            query2 = "INSERT INTO pos_segment VALUES(?,?,?,?,?)";
-            st1 = conn.prepareStatement(query1);
-            st2 = conn.prepareStatement(query2);
-
-            while((line = br.readLine()) != null) {
-                String[] segment = line.split(cvsSplitBy);
-                if (Integer.parseInt(segment[1]) != (prevId)) {
-                    prevId = Integer.parseInt(segment[1]);
-                    st1.setInt(1, Integer.parseInt(segment[1]));
-                    st1.setInt(2, Integer.parseInt(segment[0]));
-                    st1.setString(3, segment[2]);
-                    st1.executeUpdate();
-                }
-                st2.setInt(1,Integer.parseInt(segment[1]));
-                st2.setInt(2, Integer.parseInt(segment[5]));
-                st2.setFloat(3, Float.parseFloat(segment[3]));
-                st2.setFloat(4, Float.parseFloat(segment[4]));
-                st2.setDouble(5, Double.parseDouble(segment[6]));
-                st2.executeUpdate();
-            }
-        }
-        catch(IOException e) {
-            System.out.println("Unexpected I/O exception.");
-        }
-    }
-
-    private void importSkeletons2() throws SQLException {
-
         try {
             query1 = "INSERT INTO skeletons VALUES(?,?,?)";
             query12 = "UPDATE skeletons SET idfil = ?, type = ? WHERE idbranch = ?";
@@ -210,7 +178,9 @@ public class FileImporter {
             st1 = conn.prepareStatement(query1);
             st12 = conn.prepareStatement(query12);
             st2 = conn.prepareStatement(query2);
-            st12 = conn.prepareStatement(query22);
+            st22 = conn.prepareStatement(query22);
+
+            long t1 = System.nanoTime();
 
             while((line = br.readLine()) != null) {
                 String[] segment = line.split(cvsSplitBy);
@@ -232,12 +202,10 @@ public class FileImporter {
                 st2.setFloat(3, Float.parseFloat(segment[3]));
                 st2.setFloat(4, Float.parseFloat(segment[4]));
                 st2.setDouble(5, Double.parseDouble(segment[6]));
-                try {
-                    st2.executeUpdate();
-                } catch (SQLException e) {
-
-                }
+                st2.executeUpdate();
             }
+            long t2 = System.nanoTime();
+            System.out.println(t2-t1/1000000000);
         }
         catch(IOException e) {
             System.out.println("Unexpected I/O exception.");
@@ -274,8 +242,8 @@ public class FileImporter {
                         importStars();
                         break;
                     case skeletons_check:
-                        clear("skeletons");
-                        clear("pos_segment");
+                        //clear("skeletons");
+                        //clear("pos_segment");
                         importSkeletons();
                         break;
                     default:
