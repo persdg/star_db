@@ -1,6 +1,7 @@
 package entity;
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -10,7 +11,7 @@ public class Satellite {
     private Date lastObservation;
     private List<String> agencies;
 
-    public Satellite() { agencies = new LinkedList<String>(); }
+    public Satellite() { agencies = new LinkedList<>(); }
     public String getName() {
         return name;
     }

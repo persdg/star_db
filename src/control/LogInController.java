@@ -13,6 +13,6 @@ public class LogInController {
 
     public boolean SignUp(User user) {
         UserRepository UR = new UserRepository();
-        return UR.signUp(user);
+        return UR.signIn(user);
     }
 }

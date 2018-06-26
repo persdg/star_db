@@ -10,9 +10,9 @@ public class Instrument {
 
 
     public Instrument() {
-        bands = new LinkedList<Integer>();
+        bands = new LinkedList<>();
     }
-    public String getName(String name) {
+    public String getName() {
         return name;
     }
     public void setName(String name) {

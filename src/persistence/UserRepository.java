@@ -183,7 +183,7 @@ public class UserRepository {
         }
     }
 
-    public boolean signUp(User user) {
+    public boolean signIn(User user) {
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;

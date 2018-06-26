@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class FileImporter {
 
     private Connection conn = null;
-    private PreparedStatement st1, st2, st3, st12, st22;
+    private PreparedStatement st1, st2, st12, st22;
     private BufferedReader br = null;
     private String line;
     private final String cvsSplitBy = ",";
@@ -56,11 +56,17 @@ public class FileImporter {
                 e.printStackTrace();
             }
         }
-        if (st3 != null) {
+        if (st12 != null) {
             try {
-                st3.close();
+                st12.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            catch (SQLException e) {
+        }
+        if (st22 != null) {
+            try {
+                st22.close();
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -202,10 +208,19 @@ public class FileImporter {
                 st2.setFloat(3, Float.parseFloat(segment[3]));
                 st2.setFloat(4, Float.parseFloat(segment[4]));
                 st2.setDouble(5, Double.parseDouble(segment[6]));
-                st2.executeUpdate();
+                try {
+                    st2.executeUpdate();
+                } catch (SQLException e) {
+                    st22.setInt(1,Integer.parseInt(segment[5]));
+                    st22.setDouble(2,Double.parseDouble(segment[6]));
+                    st22.setInt(3,Integer.parseInt(segment[1]));
+                    st22.setFloat(4,Float.parseFloat(segment[3]));
+                    st22.setFloat(5,Float.parseFloat(segment[4]));
+                    st22.executeUpdate();
+                }
             }
             long t2 = System.nanoTime();
-            System.out.println(t2-t1/1000000000);
+            System.out.println((t2-t1)/1000000000);
         }
         catch(IOException e) {
             System.out.println("Unexpected I/O exception.");
