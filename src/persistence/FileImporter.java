@@ -186,8 +186,6 @@ public class FileImporter {
             st2 = conn.prepareStatement(query2);
             st22 = conn.prepareStatement(query22);
 
-            long t1 = System.nanoTime();
-
             while((line = br.readLine()) != null) {
                 String[] segment = line.split(cvsSplitBy);
 
@@ -219,8 +217,7 @@ public class FileImporter {
                     st22.executeUpdate();
                 }
             }
-            long t2 = System.nanoTime();
-            System.out.println((t2-t1)/1000000000);
+
         }
         catch(IOException e) {
             System.out.println("Unexpected I/O exception.");
@@ -243,6 +240,8 @@ public class FileImporter {
 
                 connect();
 
+                long t1 = System.nanoTime();
+
                 switch (line) {
                     case filaments_check:
                         //clear("filaments");
@@ -264,6 +263,10 @@ public class FileImporter {
                     default:
                         System.out.println("Not a data file compatible.");
                 }
+
+                long t2 = System.nanoTime();
+                System.out.println((t2-t1)/1000000000 + "secondi");
+
             }
         } catch (FileNotFoundException e) {
             System.out.println("FileNotFound: Couldn't locate" + path);
@@ -273,6 +276,7 @@ public class FileImporter {
             System.out.println("Couldn't locate the database driver.");
         }
         finally {
+
             disconnect();
         }
     }

@@ -1,18 +1,20 @@
 package persistence;
 
 import entity.Filament;
+import entity.FilamentInfo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class REQs {
+public class FilamentRepository {
 
     private Connection conn;
     private ResultSet rs;
-    private LinkedList<Filament> filaments;
+    private ArrayList<Filament> filaments;
 
     private void connect() throws ClassNotFoundException, SQLException{
         DataSource dataSource = new DataSource();
@@ -28,7 +30,7 @@ public class REQs {
                 e.printStackTrace();
         }
         try {
-            if(rs != null) {
+            if (rs != null) {
                 rs.close();
             }
         } catch (SQLException e) {
@@ -36,7 +38,7 @@ public class REQs {
         }
     }
 
-    public void searchFilaments(int id) {
+    public FilamentInfo searchFilaments(int id) {
         try {
 
             String query1 =
@@ -53,6 +55,7 @@ public class REQs {
             float avg_glon, avg_glat, height,width;
             PreparedStatement st1, st2;
             int count;
+            FilamentInfo FI;
 
             connect();
             st1 = conn.prepareStatement(query1);
@@ -69,26 +72,33 @@ public class REQs {
                 rs = st2.executeQuery();
                 rs.next();
                 count = rs.getInt(1);
-                System.out.println("Average galactic longitude -> " + avg_glon);
-                System.out.println("Average galactic latitude -> " + avg_glat);
-                System.out.println("Height -> " + height + "\tWidth -> " + width);
-                System.out.println("This filament has " + count + " segments in his skeleton");
+
+                FI = new FilamentInfo(avg_glat,avg_glon,height,width,count);
+
+                return FI;
+
             } else {
                 System.out.println("Filament not found.");
+                return null;
             }
 
         } catch (ClassNotFoundException e) {
             System.out.println("Couldn't locale the database driver.");
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
+        }
+        finally {
+            disconnect();
         }
     }
 
-    public void searchFilaments(String name) {
+    public FilamentInfo searchFilaments(String name) {
         try {
 
             String query1 =
-                    "SELECT idfil, avg(glon), avg(glat), max(glon) - min(glon) AS height, max(glat) - min(glat) AS width " +
+                    "SELECT avg(glon), avg(glat), max(glon) - min(glon) AS height, max(glat) - min(glat) AS width " +
                     "FROM boundaries NATURAL JOIN filaments " +
                     "WHERE name = ? " +
                     "GROUP BY idfil";
@@ -103,7 +113,7 @@ public class REQs {
             float avg_glon, avg_glat, height, width;
             PreparedStatement st1, st2;
             int count;
-            boolean found = false;
+            FilamentInfo FI;
 
             connect();
             st1 = conn.prepareStatement(query1);
@@ -111,30 +121,31 @@ public class REQs {
             st1.setString(1,name);
             st2.setString(1,name);
             rs = st1.executeQuery();
-            while(rs.next()) //assumo che il nome non sia unique
+            if(rs.next())
             {
-                found = true;
-                idfil = rs.getInt(1);
-                avg_glon = rs.getFloat(2);
-                avg_glat = rs.getFloat(3);
-                height = rs.getFloat(4);
-                width = rs.getFloat(5);
+                avg_glon = rs.getFloat(1);
+                avg_glat = rs.getFloat(2);
+                height = rs.getFloat(3);
+                width = rs.getFloat(4);
                 rs = st2.executeQuery();
                 rs.next();
                 count = rs.getInt(1);
-                System.out.println("Id -> " + idfil);
-                System.out.println("Average galactic longitude -> " + avg_glon);
-                System.out.println("Average galactic latitude -> " + avg_glat);
-                System.out.println("Height -> " + height + "\tWidth -> " + width);
-                System.out.println("This filament has " + count + " segments in his skeleton");
+
+                FI = new FilamentInfo(avg_glat, avg_glon, height, width, count);
+
+                return FI;
+
             }
-            if(!found) {
+            else {
                 System.out.println("Filament not found.");
+                return null;
             }
         } catch (ClassNotFoundException e) {
             System.out.println("Couldn't locale the database driver.");
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
     }
 }

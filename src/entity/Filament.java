@@ -10,7 +10,15 @@ public class Filament {
     private String satellite;
     private String instrument;
 
-    public Filament(int id, String name, float totalFlux, float meanFlux, float ellipticity, float contrast) {
+    public Filament(int id, String name, float totalFlux, float meanFlux, float ellipticity, float contrast, String satellite, String instrument) {
+        this.id = id;
+        this.name = name;
+        this.totalFlux = totalFlux;
+        this.meanFlux = meanFlux;
+        this.ellipticity = ellipticity;
+        this.contrast = contrast;
+        this.satellite = satellite;
+        this.instrument = instrument;
 
     }
 
