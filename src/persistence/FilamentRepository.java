@@ -1,6 +1,7 @@
 package persistence;
 
 import entity.Filament;
+import entity.FilamentIdName;
 import entity.FilamentInfo;
 
 import java.sql.Connection;
@@ -15,6 +16,7 @@ public class FilamentRepository {
     private Connection conn;
     private ResultSet rs;
     private ArrayList<Filament> filaments;
+    public ArrayList<FilamentIdName> filamentIdNames;
 
     private void connect() throws ClassNotFoundException, SQLException{
         DataSource dataSource = new DataSource();
@@ -147,5 +149,46 @@ public class FilamentRepository {
             e.printStackTrace();
             return null;
         }
+    }
+    public ArrayList<FilamentIdName> contrastEllipticityFilament(int minEllipticity, int maxEllipticity, double contrast){
+        try {
+            String query1 =
+                    "SELECT id, name" +
+                            "FROM filaments" +
+                            "WHERE ellipticity > ? && ellipticity < ? && contrast > ?";
+
+            int id;
+            String name;
+            PreparedStatement st1;
+            FilamentIdName FIN;
+
+            connect();
+            st1 = conn.prepareStatement(query1);
+            st1.setInt(1,minEllipticity);
+            st1.setInt(2,maxEllipticity);
+            st1.setDouble(3,contrast);
+
+            rs = st1.executeQuery();
+
+            while (rs.next()) {
+
+                id = rs.getInt(1);
+                name = rs.getString(2);
+
+                FIN = new FilamentIdName(id, name);
+                filamentIdNames.add(FIN);
+            }
+                return filamentIdNames;
+            }
+        catch (ClassNotFoundException e) {
+            System.out.println("Couldn't locale the database driver.");
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+
     }
 }
