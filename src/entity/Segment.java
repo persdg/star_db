@@ -2,6 +2,7 @@ package entity;
 
 import java.util.List;
 
+
 public class Segment {
     private int id;
     private int idFil;
