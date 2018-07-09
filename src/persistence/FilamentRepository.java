@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 public class FilamentRepository {
 
@@ -150,12 +150,12 @@ public class FilamentRepository {
             return null;
         }
     }
-    public ArrayList<FilamentIdName> contrastEllipticityFilament(int minEllipticity, int maxEllipticity, double contrast){
+    public ArrayList<FilamentIdName> contrastEllipticityFilament(int minEllipticity, int maxEllipticity, double contrast) {
         try {
             String query1 =
                     "SELECT id, name" +
                             "FROM filaments" +
-                            "WHERE ellipticity > ? && ellipticity < ? && contrast > ?";
+                            "WHERE ellipticity > ? AND ellipticity < ? AND contrast > ?";
 
             int id;
             String name;
@@ -164,9 +164,9 @@ public class FilamentRepository {
 
             connect();
             st1 = conn.prepareStatement(query1);
-            st1.setInt(1,minEllipticity);
-            st1.setInt(2,maxEllipticity);
-            st1.setDouble(3,contrast);
+            st1.setInt(1, minEllipticity);
+            st1.setInt(2, maxEllipticity);
+            st1.setDouble(3, contrast);
 
             rs = st1.executeQuery();
 
@@ -178,17 +178,107 @@ public class FilamentRepository {
                 FIN = new FilamentIdName(id, name);
                 filamentIdNames.add(FIN);
             }
-                return filamentIdNames;
-            }
-        catch (ClassNotFoundException e) {
+            return filamentIdNames;
+        } catch (ClassNotFoundException e) {
             System.out.println("Couldn't locale the database driver.");
             return null;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
-
-
-
     }
-}
+
+        public List<Integer>  scanCircle(double glat, double glon, double radius){
+
+            ArrayList<Integer> IDs = new ArrayList<>();
+            try {
+                String query =
+                        "SELECT idfil " +
+                                "FROM boundaries " +
+                                "EXCEPT " +
+                                "SELECT idfil " +
+                                "FROM boundaries " +
+                                "WHERE SQRT((glat - ?)^2 + (glon - ?)^2) > ?";
+                PreparedStatement st;
+
+                connect();
+
+                st = conn.prepareStatement(query);
+
+                st.setDouble(1, glat);
+                st.setDouble(2, glon);
+                st.setDouble(3, radius);
+
+                rs = st.executeQuery();
+
+                while (rs.next()) {
+                    IDs.add(rs.getInt(1));
+                }
+
+                return IDs;
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return IDs;
+            } catch (ClassNotFoundException e) {
+                System.out.println("Couldn't locate the database driver.");
+                return IDs;
+            } finally {
+                disconnect();
+            }
+        }
+
+            public List<Integer> scanSquare(double glat, double glon, double side) {
+
+                double topSide, botSide, rightSide, leftSide;
+                topSide = glat + side/2;
+                botSide = glat - side/2;
+                leftSide = glon - side/2;
+                rightSide = glon + side/2;
+
+                ArrayList<Integer> IDs = new ArrayList<>();
+
+                try {
+                    String query =
+                            "SELECT idfil " +
+                                    "FROM boundaries " +
+                                    "EXCEPT " +
+                                    "SELECT idfil " +
+                                    "FROM boundaries " +
+                                    "WHERE glat <= ? AND glat >= ? AND glon <= ? AND glon >= ?";
+
+                    PreparedStatement st;
+
+                    connect();
+
+                    st = conn.prepareStatement(query);
+
+                    st.setDouble(1, topSide);
+                    st.setDouble(2, botSide);
+                    st.setDouble(3, rightSide);
+                    st.setDouble(4,leftSide);
+
+                    rs = st.executeQuery();
+
+                    while(rs.next()) {
+                        IDs.add(rs.getInt(1));
+                    }
+
+                    return IDs;
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return IDs;
+                } catch (ClassNotFoundException e) {
+                    System.out.println("Couldn't locate the database driver.");
+                    return IDs;
+                } finally {
+                    disconnect();
+                }
+            }
+        }
+
+
+
+
+
