@@ -6,6 +6,7 @@ import java.lang.Math;
 import entity.Star;
 import entity.BoundaryPoint;
 
+import exception.NegativeValuesException;
 import persistence.BoundaryRepository;
 import persistence.StarRepository;
 
@@ -24,8 +25,9 @@ public class StarController {
 
 
 
-    public double[] starsInBoundary(int id) {
+    public double[] starsInBoundary(int id) throws NegativeValuesException {
 
+        if(id <= 0) throw new NegativeValuesException();
 
         StarRepository SR = new StarRepository();
         BoundaryRepository BR = new BoundaryRepository();
