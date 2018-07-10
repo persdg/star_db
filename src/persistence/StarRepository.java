@@ -90,7 +90,7 @@ public class StarRepository {
 
         try{
             String query1 = //stars in rect with ID and type
-                    "CREATE VIEW StarsInRect(idstar,type) "+
+                    "CREATE VIEW StarsInRect(idstar,type) AS "+
                             "SELECT idstar,type "+
                             "FROM stars "+
                             "WHERE glat <= ? AND glat >= ? AND glon <= ? AND glon >= ?";

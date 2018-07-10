@@ -2,7 +2,7 @@ package control;
 
 import java.util.ArrayList;
 import java.lang.Math;
-import java.util.ArrayList;
+
 
 import entity.Star;
 import entity.BoundaryPoint;

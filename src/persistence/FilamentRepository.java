@@ -155,8 +155,8 @@ public class FilamentRepository {
     public ArrayList<FilamentIdName> contrastEllipticityFilament(int minEllipticity, int maxEllipticity, double contrast) {
         try {
             String query1 =
-                    "SELECT id, name" +
-                            "FROM filaments" +
+                    "SELECT id, name " +
+                            "FROM filaments " +
                             "WHERE ellipticity > ? AND ellipticity < ? AND contrast > ?";
 
             int id;
@@ -292,13 +292,13 @@ public class FilamentRepository {
                 try {
 
                     String query1 =
-                            "CREATE VIEW pointsInBoundary(ID,TotPoints) "+//number of boundary's points per filament
+                            "CREATE VIEW pointsInBoundary(ID,TotPoints) AS "+//number of boundary's points per filament
                                     "SELECT idfil, count(*) "+
                                     "FROM boundaries "+
                                     "GROUP BY idfil";
 
                     String query2 =
-                            "CREATE VIEW pointsInRect(ID,RectPoints) "+//num of boundary's points
+                            "CREATE VIEW pointsInRect(ID,RectPoints) AS "+//num of boundary's points
                                     "SELECT idfil, count(*) "+//per filament in rect
                                     "FROM boundaries "+
                                     "WHERE glat <= ? AND glat >= ? AND glon <= ? AND glon >= ? "+
@@ -306,7 +306,7 @@ public class FilamentRepository {
 
                     String query3 =
                             "SELECT ID "+//list of filament's IDs completely contained in the rect
-                                    "FROM pointsInBoundary NATURAL JOIN pointsInRect "+
+                                    "FROM pointsInBoundary JOIN pointsInRect "+
                                     "ON (pointsInBoundary.TotPoints = pointsInRect.RectPoints)";
 
                     PreparedStatement st1,st2,st3;
