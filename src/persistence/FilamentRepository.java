@@ -155,7 +155,7 @@ public class FilamentRepository {
     public ArrayList<FilamentIdName> contrastEllipticityFilament(int minEllipticity, int maxEllipticity, double contrast) {
         try {
             String query1 =
-                    "SELECT id, name " +
+                    "SELECT idfil, name " +
                             "FROM filaments " +
                             "WHERE ellipticity > ? AND ellipticity < ? AND contrast > ?";
 

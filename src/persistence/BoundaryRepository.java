@@ -82,7 +82,7 @@ public class BoundaryRepository {
 
             String query =
 
-                    "SELECT boundaries.glon, boundaries.glat" +
+                    "SELECT boundaries.glon, boundaries.glat " +
                     "FROM segments JOIN boundaries ON (segments.idfil = boundaries.idfil)" +
                     "WHERE segments.idbranch = ?";
 
