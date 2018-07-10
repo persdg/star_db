@@ -41,7 +41,7 @@ public class SegmentRepository {
 
         try {
             String query1 =
-                    "CREATE VIEW NSEGMENTS(idfil,num)" +
+                    "CREATE VIEW NSEGMENTS(idfil,num) " +
                     "SELECT idfil, count(*)" +
                             "FROM segments " +
                             "GROUP BY idfil" +

@@ -15,8 +15,10 @@ public class FilamentRepository {
 
     private Connection conn;
     private ResultSet rs;
-    private ArrayList<Filament> filaments;
+    public ArrayList<Filament> filaments;
     public ArrayList<FilamentIdName> filamentIdNames;
+    private float topSide,botSide,rightSide,leftSide;
+    private ArrayList<Integer> IDs = new ArrayList<>();
 
     private void connect() throws ClassNotFoundException, SQLException{
         DataSource dataSource = new DataSource();
@@ -188,9 +190,9 @@ public class FilamentRepository {
         }
     }
 
-        public List<Integer>  scanCircle(double glat, double glon, double radius){
+    public List<Integer>  scanCircle(float glat, float glon, float radius){
 
-            ArrayList<Integer> IDs = new ArrayList<>();
+
             try {
                 String query =
                         "SELECT idfil " +
@@ -198,7 +200,7 @@ public class FilamentRepository {
                                 "EXCEPT " +
                                 "SELECT idfil " +
                                 "FROM boundaries " +
-                                "WHERE SQRT((glat - ?)^2 + (glon - ?)^2) > ?";
+                                "WHERE SQRT((glat - ?)^2 + (glon - ?)^2) >= ?";
                 PreparedStatement st;
 
                 connect();
@@ -228,15 +230,14 @@ public class FilamentRepository {
             }
         }
 
-            public List<Integer> scanSquare(double glat, double glon, double side) {
+        public List<Integer> scanSquare(float glat, float glon, float side) {
 
-                double topSide, botSide, rightSide, leftSide;
                 topSide = glat + side/2;
                 botSide = glat - side/2;
                 leftSide = glon - side/2;
                 rightSide = glon + side/2;
 
-                ArrayList<Integer> IDs = new ArrayList<>();
+
 
                 try {
                     String query =
@@ -276,7 +277,82 @@ public class FilamentRepository {
                     disconnect();
                 }
             }
-        }
+
+
+            public ArrayList<Filament> filamentInRect(float glat,float glon, float basis,float height){
+
+                topSide = glat + height/2;
+                botSide = glat - height/2;
+                leftSide = glon - basis/2;
+                rightSide = glon + basis/2;
+
+                Filament FI;
+                int id;
+
+                try {
+
+                    String query1 =
+                            "CREATE VIEW pointsInBoundary(ID,TotPoints) "+//number of boundary's points per filament
+                                    "SELECT idfil, count(*) "+
+                                    "FROM boundaries "+
+                                    "GROUP BY idfil";
+
+                    String query2 =
+                            "CREATE VIEW pointsInRect(ID,RectPoints) "+//num of boundary's points
+                                    "SELECT idfil, count(*) "+//per filament in rect
+                                    "FROM boundaries "+
+                                    "WHERE glat <= ? AND glat >= ? AND glon <= ? AND glon >= ? "+
+                                    "GROUP BY idfil";
+
+                    String query3 =
+                            "SELECT ID "+//list of filament's IDs completely contained in the rect
+                                    "FROM pointsInBoundary NATURAL JOIN pointsInRect "+
+                                    "ON (pointsInBoundary.TotPoints = pointsInRect.RectPoints)";
+
+                    PreparedStatement st1,st2,st3;
+
+                    connect();
+
+                    st1 = conn.prepareStatement(query1);
+                    st2 = conn.prepareStatement(query2);
+                    st3 = conn.prepareStatement(query3);
+
+                    st2.setFloat(1,topSide);
+                    st2.setFloat(2,botSide);
+                    st2.setFloat(3,rightSide);
+                    st2.setFloat(4,leftSide);
+
+                    rs = st3.executeQuery();
+
+                    while(rs.next()){
+
+                        id = rs.getInt(1);
+
+                        FI = new Filament(id,null,0,0,0,0,null,null);
+                        filaments.add(FI);
+
+                    }
+
+                    return filaments;//list of IDs
+
+
+
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                } catch (ClassNotFoundException e) {
+                    System.out.println("Couldn't locate the database driver.");
+                    return null;
+                } finally {
+                    disconnect();
+                }
+                }
+
+
+            }
+
+
+
 
 
 

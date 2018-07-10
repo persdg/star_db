@@ -14,6 +14,9 @@ public class StarRepository {
     private Connection conn;
     private ResultSet rs;
     public ArrayList<Star> starList;
+    public double[] starsRectValues = new double[3]; //1st num of protostellars in rect, 2nd num of prestellars in rect,
+    //3rd num of unbounds in rect
+
 
     private void connect() throws ClassNotFoundException, SQLException {
         DataSource dataSource = new DataSource();
@@ -76,5 +79,69 @@ public class StarRepository {
         } finally {
             disconnect();
         }
+    }
+
+    public double[] starsInRect(float glat,float glon, float basis, float height){
+
+        float topSide = glat + height/2;
+        float botSide = glat - height/2;
+        float leftSide = glon - basis/2;
+        float rightSide = glon + basis/2;
+
+        try{
+            String query1 = //stars in rect with ID and type
+                    "CREATE VIEW StarsInRect(idstar,type) "+
+                            "SELECT idstar,type "+
+                            "FROM stars "+
+                            "WHERE glat <= ? AND glat >= ? AND glon <= ? AND glon >= ?";
+
+            String query2 = //number of stars in rect per type
+                    "SELECT COUNT(*) "+
+                            "FROM StarsInRect "+
+                            "WHERE type = ?";
+
+            PreparedStatement st1,st2;
+
+            connect();
+
+            st1 = conn.prepareStatement(query1);
+            st2 = conn.prepareStatement(query2);
+
+
+            st1.setFloat(1,topSide);
+            st1.setFloat(2,botSide);
+            st1.setFloat(3,rightSide);
+            st1.setFloat(4,leftSide);
+
+            st2.setString(1,"PROTOSTELLAR");//number of protostellars in rect
+
+            rs = st2.executeQuery();
+
+            if(rs.next()){starsRectValues[0] = rs.getDouble(1);}
+
+            st2.setString(1,"PRESTELLAR");//number of  in rect
+
+            rs = st2.executeQuery();
+
+            if(rs.next()){starsRectValues[1] = rs.getDouble(1);}
+
+            st2.setString(1,"UNBOUND");//number of unbounds in rect
+
+            rs = st2.executeQuery();
+
+            if(rs.next()){starsRectValues[2] = rs.getDouble(1);}
+
+            return starsRectValues;
+
+        }catch (ClassNotFoundException e) {
+            System.out.println("Couldn't locale the database driver.");
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            disconnect();
+        }
+
     }
 }
