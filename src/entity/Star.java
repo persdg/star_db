@@ -6,7 +6,6 @@ public class Star {
     private String type;
     private float glon;
     private float glat;
-    private int num_prog;
     private float flux;
 
     public Star(int id, String name, String type, float glon, float glat, int num_prog, float flux) {
@@ -16,7 +15,6 @@ public class Star {
         this.type = type;
         this.glon = glon;
         this.glat = glat;
-        this.num_prog = num_prog;
         this.flux = flux;
     }
 
@@ -34,9 +32,6 @@ public class Star {
     }
     public float getLan() {
         return glat;
-    }
-    public int getNum_Prog() {
-        return num_prog;
     }
     public float getFlux() {
         return flux;

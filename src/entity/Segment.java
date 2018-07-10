@@ -9,7 +9,7 @@ public class Segment {
     private char type;
     private List<SegmentPoint> positions;
 
-    public Segment(int id, int IDFil, char type, List<SegmentPoint> positions) {
+    public Segment(int id, int idFil, char type, List<SegmentPoint> positions) {
         this.id = id;
         this.idFil = idFil;
         this.type = type;

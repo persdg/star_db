@@ -41,7 +41,7 @@ public class BoundaryRepository {
         try {
 
             String query1 =
-                    "SELECT glon, glat,  " +
+                    "SELECT glon, glat  " +
                             "FROM boundaries "+
                             "WHERE idfil = ?";
 
@@ -74,6 +74,52 @@ public class BoundaryRepository {
         } finally {
             disconnect();
         }
+    }
+
+    public ArrayList<BoundaryPoint> segmentBoundary(int idbranch){
+
+        try{
+
+            String query =
+
+                    "SELECT boundaries.glon, boundaries.glat" +
+                    "FROM segments JOIN boundaries ON (segments.idfil = boundaries.idfil)" +
+                    "WHERE segments.idbranch = ?";
+
+            float glon,glat;
+            PreparedStatement st;
+            BoundaryPoint BP;
+
+            connect();
+            st = conn.prepareStatement(query);
+            st.setInt(1,idbranch);
+
+            rs = st.executeQuery();
+
+            while(rs.next()){
+
+                glon = rs.getFloat(1);
+                glat = rs.getFloat(2);
+
+                BP = new BoundaryPoint(glon,glat);
+
+                boundaryList.add(BP);
+            }
+
+            return boundaryList;
+
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Couldn't locale the database driver.");
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            disconnect();
+        }
+
+
     }
 
     }

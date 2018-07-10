@@ -22,7 +22,7 @@ public class StarController {
     private double [] starsBoundaryValues = new double[4]; //1st number of stars, 2nd protostellar %, 3rd prestellar %,
     //4th unbound %
     private ArrayList<Star> starsList;
-    private ArrayList<BoundaryPoint> BoundaryList;
+    private ArrayList<BoundaryPoint> boundaryList;
 
     private double formulaValue = 0;
 
@@ -43,20 +43,20 @@ public class StarController {
         BoundaryRepository BR = new BoundaryRepository();
 
         starsList = SR.starsInfo(); //list of stars with glon and glat
-        BoundaryList = BR.filamentBoundary(id); //list of points (glon,glat) that belongs to a specific filament
+        boundaryList = BR.filamentBoundary(id); //list of points (glon,glat) that belongs to a specific filament
 
         for (Star i : starsList) {
 
             starLat = i.getLan();
             starLon = i.getGlon();
 
-            for (int j = 0; j<(BoundaryList.size()-1);j++){
+            for (int j = 0; j<(boundaryList.size()-1); j++){
 
-                pointLon = BoundaryList.get(j).getX(); //lon current point of boundary
-                pointLat = BoundaryList.get(j).getY();//lat current point of boundary
+                pointLon = boundaryList.get(j).getX(); //lon current point of boundary
+                pointLat = boundaryList.get(j).getY();//lat current point of boundary
 
-                nextPointLon = BoundaryList.get(j+1).getX();//lon next point of boundary
-                nextPointLat = BoundaryList.get(j+1).getY();//lat next point of boundary
+                nextPointLon = boundaryList.get(j+1).getX();//lon next point of boundary
+                nextPointLat = boundaryList.get(j+1).getY();//lat next point of boundary
 
                 formulaValue = formulaValue + Math.atan(((pointLon-starLon)*(nextPointLat-starLat)-(pointLat-
                         starLat)*(nextPointLon-starLon))/((pointLon-//control formula
@@ -64,7 +64,7 @@ public class StarController {
 
             }
 
-            if(Math.abs(formulaValue)>= 0.5729578){
+            if(Math.abs(formulaValue)>= 0.01){
 
                 starsBoundaryValues[0] ++;//add 1 to stars in boundary counter
                 if(i.getType().equals("PROTOSTELLAR")){ starsBoundaryValues[1] ++; } //counter of Protostellars

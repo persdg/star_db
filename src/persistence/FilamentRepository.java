@@ -246,7 +246,7 @@ public class FilamentRepository {
                                     "EXCEPT " +
                                     "SELECT idfil " +
                                     "FROM boundaries " +
-                                    "WHERE glat <= ? AND glat >= ? AND glon <= ? AND glon >= ?";
+                                    "WHERE glat >= ? OR glat <= ? OR glon >= ? OR glon <= ?";
 
                     PreparedStatement st;
 

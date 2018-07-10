@@ -1,7 +1,7 @@
 package persistence;
 
 import entity.FilamentIdName;
-import entity.Segment;
+import entity.SegmentPoint;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +14,7 @@ public class SegmentRepository {
     private Connection conn;
     private ResultSet rs;
     public ArrayList<FilamentIdName> filamentIdNames;
+    public ArrayList<SegmentPoint> Extremes;
 
 
     private void connect() throws ClassNotFoundException, SQLException{
@@ -41,30 +42,24 @@ public class SegmentRepository {
 
         try {
             String query1 =
-                    "CREATE VIEW NSEGMENTS(idfil,num) AS " +
-                    "SELECT idfil, count(*)" +
-                            "FROM segments " +
-                            "GROUP BY idfil" +
-                            "HAVING count(*) <= ? AND count(*) >= ?";
+                    "SELECT filaments.idfil, filaments.name " +
+                            "FROM segments JOIN filaments ON (segments.idfil = filaments.idfil)" +
+                            "GROUP BY filaments.idfil" +
+                            "having COUNT(*) <= ? AND COUNT(*) >= ?";
 
-            String query2 =
-                    "SELECT idfil, name " +
-                            "FROM filaments NATURAL JOIN NSEGMENTS";
 
             int id;
             String name;
 
             PreparedStatement st1;
-            PreparedStatement st2;
             FilamentIdName FIN;
 
             connect();
             st1 = conn.prepareStatement(query1);
-            st2 = conn.prepareStatement(query2);
             st1.setInt(1,maxVal);
             st1.setInt(2,minVal);
 
-            rs = st2.executeQuery();
+            rs = st1.executeQuery();
 
             while (rs.next()) {
 
@@ -84,5 +79,64 @@ public class SegmentRepository {
             return null;
         }
 
-}
+    }
+
+    public ArrayList<SegmentPoint> segmentExtremes(int idbranch) {
+
+        try {
+            String query1 = "SELECT max(num_prog),glat,glon " + //max num prog
+                    "FROM pos_segment " +
+                    "WHERE idbranch = ? " +
+                    "GROUP BY idbranch";
+
+            String query2 = "SELECT min(num_prog),glat,glon " + //min num prog
+                    "FROM pos_segment " +
+                    "WHERE idbranch = ? " +
+                    "GROUP BY idbranch";
+
+            PreparedStatement st1;
+            PreparedStatement st2;
+            SegmentPoint SP;
+            float glat, glon;
+
+            connect();
+
+            st1 = conn.prepareStatement(query1);
+            st2 = conn.prepareStatement(query2);
+
+            st1.setInt(1, idbranch);
+            st2.setInt(1, idbranch);
+
+            rs = st1.executeQuery();
+
+            if (rs.next()) {
+                glat = rs.getFloat(2);
+                glon = rs.getFloat(3);
+                SP = new SegmentPoint(glon, glat, 0, 0);
+                Extremes.add(SP);
+            }
+
+            rs = st1.executeQuery();
+
+            if (rs.next()) {
+                glat = rs.getFloat(2);
+                glon = rs.getFloat(3);
+                SP = new SegmentPoint(glon, glat, 0, 0);
+                Extremes.add(SP);
+            }
+
+            return Extremes; //list of 2 extremes of a segment
+
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Couldn't locale the database driver.");
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
 }
