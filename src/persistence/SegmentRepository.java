@@ -1,6 +1,6 @@
 package persistence;
 
-import entity.FilamentIdName;
+import entity.Filament;
 import entity.SegmentPoint;
 
 import java.sql.Connection;
@@ -13,7 +13,7 @@ public class SegmentRepository {
 
     private Connection conn;
     private ResultSet rs;
-    public ArrayList<FilamentIdName> filamentIdNames;
+    public ArrayList<Filament> filaments;
     public ArrayList<SegmentPoint> Extremes;
 
 
@@ -38,7 +38,7 @@ public class SegmentRepository {
             e.printStackTrace();
         }
     }
-    public ArrayList<FilamentIdName> SegmentNumber(int minVal, int maxVal){
+    public ArrayList<Filament> SegmentNumber(int minVal, int maxVal){
 
         try {
             String query1 =
@@ -49,10 +49,9 @@ public class SegmentRepository {
 
 
             int id;
-            String name;
 
             PreparedStatement st1;
-            FilamentIdName FIN;
+            Filament FI;
 
             connect();
             st1 = conn.prepareStatement(query1);
@@ -64,12 +63,14 @@ public class SegmentRepository {
             while (rs.next()) {
 
                 id = rs.getInt(1);
-                name = rs.getString(2);
 
-                FIN = new FilamentIdName(id, name);
-                filamentIdNames.add(FIN);
+
+                FI = new Filament(id,null,0,0,0,0,
+                        null,null);
+
+                filaments.add(FI);
             }
-            return filamentIdNames;
+            return filaments;
 
     } catch (ClassNotFoundException e) {
             System.out.println("Couldn't locale the database driver.");
