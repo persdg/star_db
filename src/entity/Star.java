@@ -6,9 +6,9 @@ public class Star {
     private String type;
     private float glon;
     private float glat;
-    private float flux;
+    private double flux;
 
-    public Star(int id, String name, String type, float glon, float glat, int num_prog, float flux) {
+    public Star(int id, String name, String type, float glon, float glat, int num_prog, double flux) {
 
         this.id = id;
         this.name = name;
@@ -30,10 +30,10 @@ public class Star {
     public float getGlon() {
         return glon;
     }
-    public float getLan() {
+    public float getLat() {
         return glat;
     }
-    public float getFlux() {
+    public double getFlux() {
         return flux;
     }
 

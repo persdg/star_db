@@ -2,8 +2,11 @@ package control;
 
 import java.util.ArrayList;
 import java.lang.Math;
+import java.util.Arrays;
 
 
+
+import entity.SegmentPoint;
 import entity.Star;
 import entity.BoundaryPoint;
 import entity.Filament;
@@ -12,6 +15,8 @@ import exception.NegativeValuesException;
 import persistence.BoundaryRepository;
 import persistence.FilamentRepository;
 import persistence.StarRepository;
+import persistence.SegmentRepository;
+
 
 
 public class StarController {
@@ -21,10 +26,14 @@ public class StarController {
     //unbound %)
     private double [] starsBoundaryValues = new double[4]; //1st number of stars, 2nd protostellar %, 3rd prestellar %,
     //4th unbound %
-    private ArrayList<Star> starsList;
-    private ArrayList<BoundaryPoint> boundaryList;
+    private ArrayList<Star> starsList = new ArrayList<Star>();
+    private ArrayList<BoundaryPoint> boundaryList = new ArrayList<BoundaryPoint>();
 
     private double formulaValue = 0;
+
+    public double[] distances;
+
+    private ArrayList<Star> boundaryStarsList = new ArrayList<Star>();
 
 
 
@@ -40,7 +49,7 @@ public class StarController {
         float nextPointLon;
 
 
-
+        Star star;
         StarRepository SR = new StarRepository();
         BoundaryRepository BR = new BoundaryRepository();
 
@@ -49,7 +58,7 @@ public class StarController {
 
         for (Star i : starsList) {
 
-            starLat = i.getLan();
+            starLat = i.getLat();
             starLon = i.getGlon();
 
             for (int j = 0; j<(boundaryList.size()-1); j++){
@@ -68,16 +77,19 @@ public class StarController {
 
             if(Math.abs(formulaValue)>= 0.01){
 
-                starsBoundaryValues[0] ++;//add 1 to stars in boundary counter
+
                 if(i.getType().equals("PROTOSTELLAR")){ starsBoundaryValues[1] ++; } //counter of Protostellars
                 if(i.getType().equals("PRESTELLAR")){starsBoundaryValues[2] ++;} //counter of prestellars
                 if (i.getType().equals("UNBOUND")){starsBoundaryValues[3] ++;} //counter of unbounds
+
+                boundaryStarsList.add(i); //add star to the list
 
             }
 
             formulaValue = 0;
 
         }
+        starsBoundaryValues[0] = boundaryStarsList.size(); // tot num of stars in boundary
         //percentages
         starsBoundaryValues[1] = ((starsBoundaryValues[1]*100)/starsBoundaryValues[0]); //protostellar %
         starsBoundaryValues[2] = ((starsBoundaryValues[2]*100)/starsBoundaryValues[0]); //prestellar %
@@ -147,4 +159,58 @@ public class StarController {
         return starsValues;
 
     }
+
+    public ArrayList<Star> listOfStarsInBoundary(int id)throws  NegativeValuesException{ //Req 12
+
+        if(id <= 0) throw new NegativeValuesException();
+
+        starsInBoundary(id);
+
+        return boundaryStarsList; //list of stars in the boundary
+
+    }
+
+    public double[] Distance(ArrayList<Star> listOfStars, int id){ //req 12 distanze
+
+        float starGlon,starGlat,segGlat,segGlon;
+        double min;
+        double dist;
+
+        distances = new double[listOfStars.size()]; //array for the distances of the stars
+
+        SegmentRepository SegR = new SegmentRepository();
+        ArrayList<SegmentPoint> segPointList = SegR.skeletonSegmentPointInFil(id);
+
+        for(int k = 0; k < listOfStars.size(); k++){
+
+            starGlon = listOfStars.get(k).getGlon();
+            starGlat = listOfStars.get(k).getLat();
+            segGlon = segPointList.get(0).getX();
+            segGlat = segPointList.get(0).getY();
+
+            min = Math.sqrt(Math.pow((starGlon-segGlon),2)+Math.pow((starGlat-segGlat),2)); //init
+
+            for(int c = 1; c < segPointList.size(); c++){
+
+                segGlon = segPointList.get(c).getX();
+                segGlat = segPointList.get(c).getY();
+
+                dist = Math.sqrt(Math.pow((starGlon-segGlon),2)+Math.pow((starGlat-segGlat),2));
+
+                if(dist < min){
+                    min = dist;
+                }
+
+            }
+            distances[k] = min;
+
+        }
+
+        Arrays.sort(distances);
+
+        return distances;
+
+    }
+
+
 }

@@ -45,11 +45,14 @@ public class StarRepository {
         try {
 
             String query1 =
-                    "SELECT glon, glat, type " +
-                            "FROM stars";
+                    "SELECT glon, glat, type, idstar, flux " +
+                            "FROM stars" +
+                            "ORDER BY flux";
 
             String type;
             float glon, glat;
+            double flux;
+            int id;
             PreparedStatement st;
             Star star;
 
@@ -62,8 +65,10 @@ public class StarRepository {
                 glon = rs.getFloat(1);
                 glat = rs.getFloat(2);
                 type = rs.getString(3);
+                flux = rs.getDouble(4);
+                id = rs.getInt(5);
 
-                star = new Star(0,null,type,glon,glat,0,0);
+                star = new Star(id,null,type,glon,glat,0,flux);
 
                 starList.add(star);
             }

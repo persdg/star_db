@@ -14,7 +14,7 @@ public class FilamentRepository {
 
     private Connection conn;
     private ResultSet rs;
-    public ArrayList<Filament> filaments;
+    public ArrayList<Filament> filaments = new ArrayList<Filament>();
     private float topSide,botSide,rightSide,leftSide;
     private ArrayList<Integer> IDs = new ArrayList<>();
 
