@@ -46,7 +46,7 @@ public class StarRepository {
 
             String query1 =
                     "SELECT glon, glat, type, idstar, flux " +
-                            "FROM stars" +
+                            "FROM stars " +
                             "ORDER BY flux";
 
             String type;
