@@ -13,7 +13,7 @@ public class StarRepository {
 
     private Connection conn;
     private ResultSet rs;
-    public ArrayList<Star> starList;
+    public ArrayList<Star> starList = new ArrayList<Star>();
     public double[] starsRectValues = new double[3]; //1st num of protostellars in rect, 2nd num of prestellars in rect,
     //3rd num of unbounds in rect
 
