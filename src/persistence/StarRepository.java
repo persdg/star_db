@@ -94,45 +94,39 @@ public class StarRepository {
         float rightSide = glon + basis/2;
 
         try{
-            String query1 = //stars in rect with ID and type
-                    "CREATE VIEW StarsInRect(idstar,type) AS "+
-                            "SELECT idstar,type "+
+            String query = //stars in rect with ID and type
+                            "SELECT COUNT(*) "+
                             "FROM stars "+
-                            "WHERE glat <= ? AND glat >= ? AND glon <= ? AND glon >= ?";
+                            "WHERE glat <= ? AND glat >= ? AND glon <= ? AND glon >= ? AND type = ?";
 
-            String query2 = //number of stars in rect per type
-                    "SELECT COUNT(*) "+
-                            "FROM StarsInRect "+
-                            "WHERE type = ?";
-
-            PreparedStatement st1,st2;
+            PreparedStatement st;
 
             connect();
 
-            st1 = conn.prepareStatement(query1);
-            st2 = conn.prepareStatement(query2);
+
+            st = conn.prepareStatement(query);
 
 
-            st1.setFloat(1,topSide);
-            st1.setFloat(2,botSide);
-            st1.setFloat(3,rightSide);
-            st1.setFloat(4,leftSide);
+            st.setFloat(1,topSide);
+            st.setFloat(2,botSide);
+            st.setFloat(3,rightSide);
+            st.setFloat(4,leftSide);
 
-            st2.setString(1,"PROTOSTELLAR");//number of protostellars in rect
+            st.setString(1,"PROTOSTELLAR");//number of protostellars in rect
 
-            rs = st2.executeQuery();
+            rs = st.executeQuery();
 
             if(rs.next()){starsRectValues[0] = rs.getDouble(1);}
 
-            st2.setString(1,"PRESTELLAR");//number of  in rect
+            st.setString(1,"PRESTELLAR");//number of  in rect
 
-            rs = st2.executeQuery();
+            rs = st.executeQuery();
 
             if(rs.next()){starsRectValues[1] = rs.getDouble(1);}
 
-            st2.setString(1,"UNBOUND");//number of unbounds in rect
+            st.setString(1,"UNBOUND");//number of unbounds in rect
 
-            rs = st2.executeQuery();
+            rs = st.executeQuery();
 
             if(rs.next()){starsRectValues[2] = rs.getDouble(1);}
 
