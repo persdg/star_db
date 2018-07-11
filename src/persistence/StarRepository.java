@@ -65,8 +65,8 @@ public class StarRepository {
                 glon = rs.getFloat(1);
                 glat = rs.getFloat(2);
                 type = rs.getString(3);
-                flux = rs.getDouble(4);
-                id = rs.getInt(5);
+                id = rs.getInt(4);
+                flux = rs.getDouble(5);
 
                 star = new Star(id,null,type,glon,glat,0,flux);
 

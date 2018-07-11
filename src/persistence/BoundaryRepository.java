@@ -12,7 +12,7 @@ public class BoundaryRepository {
 
     private Connection conn;
     private ResultSet rs;
-    public ArrayList<BoundaryPoint> boundaryList;
+    public ArrayList<BoundaryPoint> boundaryList = new ArrayList<BoundaryPoint>();
 
     private void connect() throws ClassNotFoundException, SQLException {
         DataSource dataSource = new DataSource();
