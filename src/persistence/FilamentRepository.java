@@ -40,6 +40,44 @@ public class FilamentRepository {
         }
     }
 
+    public int filamentCount() {
+
+        try {
+
+            String query =
+                    "SELECT Count(*) " +
+                            "FROM filaments";
+
+            PreparedStatement st;
+            int filnum = 0;
+
+            connect();
+
+
+            st = conn.prepareStatement(query);
+
+            rs = st.executeQuery();
+
+            if(rs.next()){
+
+                filnum = rs.getInt(1);
+
+            }
+
+            return filnum;
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Couldn't locale the database driver.");
+            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        finally {
+            disconnect();
+        }
+    }
+
     public FilamentInfo searchFilaments(int id) {
         try {
 

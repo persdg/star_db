@@ -13,14 +13,34 @@ import persistence.FilamentRepository;
 public class BrightnessController {
 
     private double contrast;
+    private int brightFilNum;
+
 
     public ArrayList<Filament> brightnessCntrl(int minEllipticity, int maxEllipticity, double brightness) throws NegativeValuesException,EllipticityException { //lista da stampare
+
+        ArrayList<Filament> array;
 
         if (brightness < 0) throw new NegativeValuesException(); //stampare a schermo messaggio eccezione
         if(minEllipticity >= maxEllipticity) throw new EllipticityException(); //stampare a schermo messaggio eccezione
         contrast = 1 + (brightness/100);
         FilamentRepository FR = new FilamentRepository();
-        return FR.contrastEllipticityFilament(minEllipticity, maxEllipticity, contrast);
+        array = FR.contrastEllipticityFilament(minEllipticity, maxEllipticity, contrast);
+
+        brightFilNum = array.size();
+
+        return array;
         }
+
+    public double brightnessPercentage(){
+
+        double percentage;
+
+        FilamentRepository FR = new FilamentRepository();
+
+        percentage = (brightFilNum*100/FR.filamentCount());
+
+         return percentage;
+
+    }
 
 }
