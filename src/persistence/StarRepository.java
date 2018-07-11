@@ -112,19 +112,19 @@ public class StarRepository {
             st.setFloat(3,rightSide);
             st.setFloat(4,leftSide);
 
-            st.setString(1,"PROTOSTELLAR");//number of protostellars in rect
+            st.setString(5,"PROTOSTELLAR");//number of protostellars in rect
 
             rs = st.executeQuery();
 
             if(rs.next()){starsRectValues[0] = rs.getDouble(1);}
 
-            st.setString(1,"PRESTELLAR");//number of  in rect
+            st.setString(5,"PRESTELLAR");//number of  in rect
 
             rs = st.executeQuery();
 
             if(rs.next()){starsRectValues[1] = rs.getDouble(1);}
 
-            st.setString(1,"UNBOUND");//number of unbounds in rect
+            st.setString(5,"UNBOUND");//number of unbounds in rect
 
             rs = st.executeQuery();
 
