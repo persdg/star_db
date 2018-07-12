@@ -4,6 +4,8 @@
 package persistence;
 
 import entity.User;
+import exception.UserNotFoundException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -176,6 +178,58 @@ public class UserRepository {
             if (rs != null) {
                 try {
                     rs.close();
+                } catch(SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public boolean LogIn(String username, String password) throws UserNotFoundException {
+
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            DataSource dataSource = new DataSource();
+            conn = dataSource.getConnection();
+            String query = "SELECT admin " +
+                    "FROM users " +
+                    "WHERE username = ? AND password = ?";
+            st = conn.prepareStatement(query);
+            st.setString(1,username);
+            st.setString(2,password);
+            st.executeQuery();
+
+            if(rs.next()) {
+                return rs.getBoolean(1);
+            } else {
+                throw new UserNotFoundException();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Couldn't locale the database driver.");
+            return false;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch(SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (st != null) {
+                try {
+                    st.close();
                 } catch(SQLException e) {
                     e.printStackTrace();
                 }

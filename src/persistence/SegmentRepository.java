@@ -45,7 +45,7 @@ public class SegmentRepository {
             String query1 =
                     "SELECT filaments.idfil, filaments.name " +
                             "FROM segments JOIN filaments ON (segments.idfil = filaments.idfil)" +
-                            "GROUP BY filaments.idfil" +
+                            "GROUP BY filaments.idfil " +
                             "having COUNT(*) <= ? AND COUNT(*) >= ?";
 
 
@@ -86,12 +86,12 @@ public class SegmentRepository {
     public ArrayList<SegmentPoint> segmentExtremes(int idbranch) {
 
         try {
-            String query1 = "SELECT max(num_prog),glat,glon " + //max num prog
+            String query1 = "SELECT glat,glon " + //max num prog
                     "FROM pos_segment " +
                     "WHERE idbranch = ? " +
                     "GROUP BY idbranch";
 
-            String query2 = "SELECT min(num_prog),glat,glon " + //min num prog
+            String query2 = "SELECT glat,glon " + //min num prog
                     "FROM pos_segment " +
                     "WHERE idbranch = ? " +
                     "GROUP BY idbranch";
@@ -118,7 +118,7 @@ public class SegmentRepository {
                 segPointList.add(SP);
             }
 
-            rs = st1.executeQuery();
+            rs = st2.executeQuery();
 
             if (rs.next()) {
                 glat = rs.getFloat(2);

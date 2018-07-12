@@ -329,37 +329,25 @@ public class FilamentRepository {
                 try {
 
                     String query1 =
-                            "CREATE VIEW pointsInBoundary(ID,TotPoints) AS "+//number of boundary's points per filament
-                                    "SELECT idfil, count(*) "+
-                                    "FROM boundaries "+
-                                    "GROUP BY idfil";
+                            "SELECT idfil " +
+                                    "FROM filaments " +
+                                    "EXCEPT " +
+                                    "SELECT idfil " +
+                                    "FROM boundaries " +
+                                    "WHERE glat > ? OR glat < ? OR glon < ? OR glon > ?;";
 
-                    String query2 =
-                            "CREATE VIEW pointsInRect(ID,RectPoints) AS "+//num of boundary's points
-                                    "SELECT idfil, count(*) "+//per filament in rect
-                                    "FROM boundaries "+
-                                    "WHERE glat <= ? AND glat >= ? AND glon <= ? AND glon >= ? "+
-                                    "GROUP BY idfil";
-
-                    String query3 =
-                            "SELECT ID "+//list of filament's IDs completely contained in the rect
-                                    "FROM pointsInBoundary JOIN pointsInRect "+
-                                    "ON (pointsInBoundary.TotPoints = pointsInRect.RectPoints)";
-
-                    PreparedStatement st1,st2,st3;
+                    PreparedStatement st1;
 
                     connect();
 
                     st1 = conn.prepareStatement(query1);
-                    st2 = conn.prepareStatement(query2);
-                    st3 = conn.prepareStatement(query3);
 
-                    st2.setFloat(1,topSide);
-                    st2.setFloat(2,botSide);
-                    st2.setFloat(3,rightSide);
-                    st2.setFloat(4,leftSide);
+                    st1.setFloat(1,topSide);
+                    st1.setFloat(2,botSide);
+                    st1.setFloat(3,leftSide);
+                    st1.setFloat(4,rightSide);
 
-                    rs = st3.executeQuery();
+                    rs = st1.executeQuery();
 
                     while(rs.next()){
 
