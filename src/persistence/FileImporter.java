@@ -174,11 +174,11 @@ public class FileImporter {
         }
     }
 
-    private void importSkeletons() throws SQLException {
+    private void importSegments() throws SQLException {
 
         try {
-            query1 = "INSERT INTO skeletons VALUES(?,?,?)";
-            query12 = "UPDATE skeletons SET idfil = ?, type = ? WHERE idbranch = ?";
+            query1 = "INSERT INTO segments VALUES(?,?,?)";
+            query12 = "UPDATE segments SET idfil = ?, type = ? WHERE idbranch = ?";
             query2 = "INSERT INTO pos_segment VALUES(?,?,?,?,?)";
             query22 = "UPDATE pos_segment SET prog_num = ?, flux = ? WHERE idbranch = ? AND glon = ? AND glat = ?";
             st1 = conn.prepareStatement(query1);
@@ -230,7 +230,7 @@ public class FileImporter {
         final String filaments_check = "IDFIL,NAME,TOTAL_FLUX,MEAN_DENS,MEAN_TEMP,ELLIPTICITY,CONTRAST,SATELLITE,INSTRUMENT";
         final String boundaries_check = "IDFIL,GLON_CONT,GLAT_CONT";
         final String stars_check = "IDSTAR,NAMESTAR,GLON_ST,GLAT_ST,FLUX_ST,TYPE_ST";
-        final String skeletons_check = "IDFIL,IDBRANCH,TYPE,GLON_BR,GLAT_BR,N,FLUX";
+        final String segments_check = "IDFIL,IDBRANCH,TYPE,GLON_BR,GLAT_BR,N,FLUX";
         try {
             br = new BufferedReader(new FileReader(path));
             if ((line = br.readLine()) == null){
@@ -255,10 +255,10 @@ public class FileImporter {
                         //clear("stars");
                         importStars();
                         break;
-                    case skeletons_check:
-                        //clear("skeletons");
+                    case segments_check:
+                        //clear("segments");
                         //clear("pos_segment");
-                        importSkeletons();
+                        importSegments();
                         break;
                     default:
                         System.out.println("Not a data file compatible.");

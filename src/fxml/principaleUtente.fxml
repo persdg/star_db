@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.principaleUtenteBoundary">
+   <children>
+      <Label text="Login effettuato utente">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="163.0" layoutY="41.0" text="L'utente registrato può utilizzare:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="go_to_req5" layoutX="235.0" layoutY="89.0" mnemonicParsing="false" onAction="#goToreq5" text="Requisito5" />
+      <Button fx:id="go_to_req6" layoutX="235.0" layoutY="138.0" mnemonicParsing="false" onAction="#goToReq6" text="Requisito6" />
+      <Button fx:id="go_to_req8" layoutX="235.0" layoutY="188.0" mnemonicParsing="false" onAction="#goToReq8" text="Requisito8" />
+      <Button fx:id="go_to_req9" layoutX="235.0" layoutY="234.0" mnemonicParsing="false" onAction="#goToReq9" text="Requisito9" />
+      <Button fx:id="go_to_req10" layoutX="232.0" layoutY="286.0" mnemonicParsing="false" onAction="#goToReq10" text="Requisito10" />
+      <Button fx:id="go_to_req12" layoutX="232.0" layoutY="336.0" mnemonicParsing="false" onAction="#goToReq12" text="Requisito12" />
+   </children>
+</AnchorPane>

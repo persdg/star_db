@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.req10Boundary">
+   <children>
+      <Label text="Ricerca le stelle all’interno di una regione di cielo ">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="93.0" layoutY="89.0" text="Base">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField  fx:id="Base" layoutX="226.0" layoutY="89.0" prefHeight="25.0" prefWidth="137.0" />
+      <Label layoutX="93.0" layoutY="169.0" text="Altezza">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Altezza" layoutX="226.0" layoutY="169.0" prefHeight="25.0" prefWidth="137.0" />
+      <Label layoutX="93.0" layoutY="255.0" text="Centroide">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="X" layoutX="245.0" layoutY="255.0" prefHeight="25.0" prefWidth="40.0" />
+      <Button layoutX="422.0" layoutY="306.0" mnemonicParsing="false" onAction="#ricercaRegione" text="Ricerca" />
+      <Label layoutX="221.0" layoutY="255.0" text="X">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="309.0" layoutY="255.0" text="Y">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Y" layoutX="334.0" layoutY="255.0" prefHeight="25.0" prefWidth="40.0" />
+   </children>
+</AnchorPane>

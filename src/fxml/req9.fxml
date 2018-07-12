@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.req9Boundary">
+   <children>
+      <Label text="Ricerca di un oggetto di tutte le stelle all’interno di una struttura estesa">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="126.0" text="ID struttura estesa">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <TextField fx:id="IDStrutturaEstesa" layoutX="201.0" layoutY="123.0" />
+      <Button layoutX="403.0" layoutY="124.0" mnemonicParsing="false" onAction="#ricercaStrutturaEstesa" text="Ricerca" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.req8Boundary">
+   <children>
+      <Label text="Ricerca di un oggetto all’interno di una regione">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label layoutX="67.0" layoutY="71.0" prefHeight="20.0" prefWidth="281.0" text="Ricerca di una regione a forma di un cerchio">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="111.0" layoutY="116.0" text="Inserire raggio" />
+      <TextField fx:id="raggio" layoutX="234.0" layoutY="112.0" prefHeight="25.0" prefWidth="133.0" />
+      <Label layoutX="67.0" layoutY="200.0" text="Ricerca di una regione a forma di un quadrato">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="90.0" layoutY="248.0" text="Inserire lunghezza lato" />
+      <TextField fx:id="lato" layoutX="234.0" layoutY="244.0" prefHeight="25.0" prefWidth="133.0" />
+      <Button  layoutX="448.0" layoutY="112.0" mnemonicParsing="false" onAction="#ricercaCerchio" text="Ricerca cerchio" />
+      <Button layoutX="443.0" layoutY="244.0" mnemonicParsing="false" onAction="#ricercaQuadrato" text="Ricerca quadrato" />
+      <Label layoutX="67.0" layoutY="321.0" text="Centroide">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="X" layoutX="248.0" layoutY="319.0" prefHeight="25.0" prefWidth="39.0" />
+      <Label layoutX="229.0" layoutY="319.0" text="X">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="321.0" layoutY="319.0" text="Y">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Y" layoutX="348.0" layoutY="319.0" prefHeight="25.0" prefWidth="39.0" />
+   </children>
+</AnchorPane>

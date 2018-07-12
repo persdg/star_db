@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.req12Boundary">
+   <children>
+      <Label text="Posizione di una stella rispetto alla spina dorsale">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="58.0" layoutY="164.0" text="ID filamento">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <TextField fx:id="IDFilamento" layoutX="205.0" layoutY="162.0" prefHeight="25.0" prefWidth="133.0" />
+      <Button layoutX="421.0" layoutY="162.0" mnemonicParsing="false"  onAction="#ricercaFilamento" text="Ricerca" />
+   </children>
+</AnchorPane>

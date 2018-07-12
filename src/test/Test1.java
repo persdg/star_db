@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import control.LogInController;
 import entity.Instrument;
@@ -19,7 +19,8 @@ public class Test1{
         initSatellites();
         initInstruments();
 
-        String path = "C:\\Users\\Pers\\Desktop\\filamenti_Herschel.csv";
+        String path = "C:\\Users\\Matteo\\Desktop\\PROGETTO MARTINELLI QUI\\" +
+                "DATABASE PROG\\ProgettoDb_TestDati\\Esame Basi Dati\\stelle_Herschel.csv";
         FileImporter FI = new FileImporter();
         FI.fileImport(path);
 
@@ -84,3 +85,4 @@ public class Test1{
         }
     }
 }
+*/
