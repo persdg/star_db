@@ -2,26 +2,24 @@ package entity;
 
 public class FilamentInfo {
 
-    private float glat;
-    private float glon;
+    private double glat;
+    private double glon;
     private float height;
     private float width;
     private int count;
 
-    public FilamentInfo(float lat, float lon, float height, float width, int count) {
-        this.glat = lat;
-        this.glon = lon;
+    public FilamentInfo(double glat, double glon, float height, float width, int count) {
+        this.glat = glat;
+        this.glon = glon;
         this.height = height;
         this.width = width;
         this.count = count;
     }
 
-    public float getX() {
-        return glat;
-    }
+    public double getGlon() { return glon; }
 
-    public float getY() {
-        return glon;
+    public double getGlat() {
+        return glat;
     }
 
     public float getHeight() {

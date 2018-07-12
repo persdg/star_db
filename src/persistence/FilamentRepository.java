@@ -89,7 +89,7 @@ public class FilamentRepository {
 
             String query2 =
                     "SELECT count(*) AS count " +
-                    "FROM skeletons " +
+                    "FROM segments " +
                     "WHERE idfil = ?";
 
             float avg_glon, avg_glat, height,width;
@@ -145,12 +145,14 @@ public class FilamentRepository {
 
             String query2 =
                     "SELECT count(*) AS count " +
-                    "FROM skeletons NATURAL JOIN filaments " +
+                    "FROM segments NATURAL JOIN filaments " +
                     "WHERE name = ? " +
                     "GROUP BY idfil";
 
             int idfil;
-            float avg_glon, avg_glat, height, width;
+            float height, width;
+            double avg_glon;
+            double avg_glat;
             PreparedStatement st1, st2;
             int count;
             FilamentInfo FI;
@@ -163,8 +165,8 @@ public class FilamentRepository {
             rs = st1.executeQuery();
             if(rs.next())
             {
-                avg_glon = rs.getFloat(1);
-                avg_glat = rs.getFloat(2);
+                avg_glon = rs.getDouble(1);
+                avg_glat = rs.getDouble(2);
                 height = rs.getFloat(3);
                 width = rs.getFloat(4);
                 rs = st2.executeQuery();

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.req7Boundary">
+   <children>
+      <Label layoutX="7.0" layoutY="6.0" prefHeight="28.0" prefWidth="393.0" text="Ricerca di filamenti per numero di segmenti">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField layoutX="55.0" layoutY="144.0" />
+      <TextField layoutX="326.0" layoutY="144.0" />
+      <Label layoutX="30.0" layoutY="118.0" text="Numero Minimo Segmenti">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="296.0" layoutY="118.0" text="Numero Massimo Segmenti">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Button layoutX="55.0" layoutY="252.0" mnemonicParsing="false" text="Ricerca Filamenti">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <TableView fx:id="filamentitabella" layoutX="362.0" layoutY="210.0" prefHeight="147.0" prefWidth="77.0" />
+   </children>
+</AnchorPane>

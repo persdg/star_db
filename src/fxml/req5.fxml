@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,15 +26,7 @@
             <Font size="15.0" />
          </font></Label>
       <TextField fx:id="NomeFilamento" layoutX="199.0" layoutY="177.0" prefHeight="25.0" prefWidth="149.0" />
-      <Button layoutX="403.0" layoutY="177.0" mnemonicParsing="false" onAction="#ricercaFilamentoNome"  text="RicercaNome" />
-      <TableView fx:id="listaElementi" layoutX="93.0" layoutY="242.0" prefHeight="62.0" prefWidth="415.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Latitudine" />
-          <TableColumn prefWidth="75.0" text="Longitudine" />
-            <TableColumn prefWidth="75.0" text="Altezza" />
-            <TableColumn prefWidth="75.0" text="Larghezza" />
-            <TableColumn prefWidth="115.0" text="Numero Filamenti" />
-        </columns>
-      </TableView>
+      <Button layoutX="403.0" layoutY="177.0" mnemonicParsing="false" onAction="#ricercaFilamentoNome" text="RicercaNome" />
+      <TableView fx:id="listaElementi" layoutX="93.0" layoutY="242.0" prefHeight="62.0" prefWidth="415.0" />
    </children>
 </AnchorPane>

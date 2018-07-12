@@ -17,7 +17,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="go_to_req5" layoutX="235.0" layoutY="89.0" mnemonicParsing="false" onAction="#goToreq5" text="Requisito5" />
+      <Button fx:id="go_to_req5" layoutX="235.0" layoutY="89.0" mnemonicParsing="false" onAction="#goToReq5" text="Requisito5" />
       <Button fx:id="go_to_req6" layoutX="235.0" layoutY="138.0" mnemonicParsing="false" onAction="#goToReq6" text="Requisito6" />
       <Button fx:id="go_to_req8" layoutX="235.0" layoutY="188.0" mnemonicParsing="false" onAction="#goToReq8" text="Requisito8" />
       <Button fx:id="go_to_req9" layoutX="235.0" layoutY="234.0" mnemonicParsing="false" onAction="#goToReq9" text="Requisito9" />

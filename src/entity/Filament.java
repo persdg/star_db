@@ -1,7 +1,7 @@
 package entity;
 
 public class Filament {
-    private int id;
+    private int ID;
     private String name;
     private float totalFlux;
     private float meanFlux;
@@ -10,8 +10,8 @@ public class Filament {
     private String satellite;
     private String instrument;
 
-    public Filament(int id, String name, float totalFlux, float meanFlux, float ellipticity, float contrast, String satellite, String instrument) {
-        this.id = id;
+    public Filament(int ID, String name, float totalFlux, float meanFlux, float ellipticity, float contrast, String satellite, String instrument) {
+        this.ID = ID;
         this.name = name;
         this.totalFlux = totalFlux;
         this.meanFlux = meanFlux;
@@ -23,7 +23,7 @@ public class Filament {
     }
 
     public int getID() {
-        return id;
+        return ID;
     }
     public String getName() {
         return name;
@@ -48,6 +48,6 @@ public class Filament {
     }
 
     public String toString() {
-        return "{ IDFil: " + id + " | Name: " + name + " | Total Flux: " + totalFlux + " | Mean Flux:" + meanFlux + " | Ellipticity: " + ellipticity + " | Contrast: " + contrast + " | Satellite: " + satellite + " | Instrument:" + instrument + " }";
+        return "{ IDFil: " + ID + " | Name: " + name + " | Total Flux: " + totalFlux + " | Mean Flux:" + meanFlux + " | Ellipticity: " + ellipticity + " | Contrast: " + contrast + " | Satellite: " + satellite + " | Instrument:" + instrument + " }";
     }
 }
