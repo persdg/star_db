@@ -45,7 +45,7 @@ public class SegmentRepository {
             String query1 =
                     "SELECT filaments.idfil, filaments.name " +
                             "FROM segments JOIN filaments ON (segments.idfil = filaments.idfil)" +
-                            "GROUP BY filaments.idfil " +
+                            "GROUP BY filaments.idfil, filaments.name " +
                             "having COUNT(*) <= ? AND COUNT(*) >= ?";
 
 
@@ -83,18 +83,30 @@ public class SegmentRepository {
 
     }
 
+    /*
+    * RETURN: 2 segmentPoints, the first one is the MAX, the last one is the MIN
+     */
+
     public ArrayList<SegmentPoint> segmentExtremes(int idbranch) {
 
         try {
-            String query1 = "SELECT glat,glon " + //max num prog
+            String query1 = "SELECT glon, glat " + //max num prog
+                    "FROM pos_segment " +
+                    "WHERE idbranch = ? AND prog_num " +
+                    "IN " +
+                    "(SELECT max(prog_num) " +
                     "FROM pos_segment " +
                     "WHERE idbranch = ? " +
-                    "GROUP BY idbranch";
+                    "GROUP BY idbranch)";
 
-            String query2 = "SELECT glat,glon " + //min num prog
+            String query2 = "SELECT glon, glat " + //min num prog
+                    "FROM pos_segment " +
+                    "WHERE idbranch = ? AND prog_num " +
+                    "IN " +
+                    "(SELECT min(prog_num) " +
                     "FROM pos_segment " +
                     "WHERE idbranch = ? " +
-                    "GROUP BY idbranch";
+                    "GROUP BY idbranch)";
 
             PreparedStatement st1;
             PreparedStatement st2;
@@ -107,13 +119,15 @@ public class SegmentRepository {
             st2 = conn.prepareStatement(query2);
 
             st1.setInt(1, idbranch);
+            st1.setInt(2, idbranch);
             st2.setInt(1, idbranch);
+            st2.setInt(2, idbranch);
 
             rs = st1.executeQuery();
 
             if (rs.next()) {
-                glat = rs.getFloat(2);
-                glon = rs.getFloat(3);
+                glat = rs.getFloat(1);
+                glon = rs.getFloat(2);
                 SP = new SegmentPoint(glon, glat, 0, 0);
                 segPointList.add(SP);
             }
@@ -121,8 +135,8 @@ public class SegmentRepository {
             rs = st2.executeQuery();
 
             if (rs.next()) {
-                glat = rs.getFloat(2);
-                glon = rs.getFloat(3);
+                glat = rs.getFloat(1);
+                glon = rs.getFloat(2);
                 SP = new SegmentPoint(glon, glat, 0, 0);
                 segPointList.add(SP);
             }

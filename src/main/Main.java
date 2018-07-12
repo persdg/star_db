@@ -2,12 +2,16 @@ package main;
 
 import control.SegmentController;
 import control.StarController;
+import entity.StarInfo;
 import exception.NegativeValuesException;
+import exception.NotASortTypeException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class Main /*extends Application*/ {
 
@@ -25,14 +29,19 @@ public class Main /*extends Application*/ {
         //launch(args);
 
         try {
-            SegmentController SC = new SegmentController();
-            double[] list = SC.extremesDistances(26);
+            StarController SC = new StarController();
+            ArrayList<StarInfo> listStarInfo = SC.Distance(45, "distance");
 
-            for (double d : list) {
-                System.out.println(d);
+            for (StarInfo SI : listStarInfo) {
+                System.out.println(SI.getId() + " " + SI.getDistance() + " " + SI.getFlux());
             }
         } catch (NegativeValuesException e) {
-            System.out.println("Oh no :(");
+            System.out.println("Uh oh");
+        } catch (NotASortTypeException e) {
+            System.out.println("Ah eh");
         }
+
+
+
     }
 }

@@ -5,13 +5,10 @@ import java.lang.Math;
 import java.util.Arrays;
 
 
-
-import entity.SegmentPoint;
-import entity.Star;
-import entity.BoundaryPoint;
-import entity.Filament;
+import entity.*;
 
 import exception.NegativeValuesException;
+import exception.NotASortTypeException;
 import persistence.BoundaryRepository;
 import persistence.FilamentRepository;
 import persistence.StarRepository;
@@ -41,12 +38,15 @@ public class StarController {
 
         if(id <= 0) throw new NegativeValuesException();
 
+
         float starLat;
         float starLon;
         float pointLat;
         float pointLon;
         float nextPointLat;
         float nextPointLon;
+
+        boundaryStarsList = new ArrayList<Star>();
 
 
         Star star;
@@ -170,46 +170,86 @@ public class StarController {
 
     }
 
-    public double[] Distance(ArrayList<Star> listOfStars, int id){ //req 12 distanze
+    /*
+    NotASortTypeException: IL VALORE "sortby" DEVE ESSERE "distance" O "flux"
+     */
+
+    public ArrayList<StarInfo> Distance(int id, String sortBy) throws NegativeValuesException, NotASortTypeException { //req 12 distanze
 
         float starGlon,starGlat,segGlat,segGlon;
         double min;
         double dist;
 
-        distances = new double[listOfStars.size()]; //array for the distances of the stars
+        ArrayList<Star> listOfStars = listOfStarsInBoundary(id);
+        ArrayList<StarInfo> returnedList = new ArrayList<>();
 
         SegmentRepository SegR = new SegmentRepository();
         ArrayList<SegmentPoint> segPointList = SegR.skeletonSegmentPointInFil(id);
 
-        for(int k = 0; k < listOfStars.size(); k++){
+        for(Star star : listOfStars){
 
-            starGlon = listOfStars.get(k).getGlon();
-            starGlat = listOfStars.get(k).getLat();
-            segGlon = segPointList.get(0).getX();
-            segGlat = segPointList.get(0).getY();
+            min = -1;
+            starGlon = star.getGlon();
+            starGlat = star.getLat();
 
-            min = Math.sqrt(Math.pow((starGlon-segGlon),2)+Math.pow((starGlat-segGlat),2)); //init
+            for(SegmentPoint segmentPoint : segPointList){
 
-            for(int c = 1; c < segPointList.size(); c++){
-
-                segGlon = segPointList.get(c).getX();
-                segGlat = segPointList.get(c).getY();
+                segGlon = segmentPoint.getX();
+                segGlat = segmentPoint.getY();
 
                 dist = Math.sqrt(Math.pow((starGlon-segGlon),2)+Math.pow((starGlat-segGlat),2));
 
-                if(dist < min){
+                if(dist < min || min == -1){
                     min = dist;
                 }
 
             }
-            distances[k] = min;
-
+            returnedList.add(new StarInfo(star.getID(),(float) min,(float) star.getFlux()));
         }
 
-        Arrays.sort(distances);
+        returnedList = sort(returnedList, sortBy);
 
-        return distances;
+        return returnedList;
 
+    }
+
+    private ArrayList<StarInfo> sort(ArrayList<StarInfo> array, String sortBy) throws NotASortTypeException {
+
+        StarInfo app;
+        int minPos;
+        float minValue;
+
+        if (sortBy.equals("distance")) {
+            for (int i = 0; i < array.size(); i++) {
+                minPos = -1;
+                minValue = -1;
+                for (int j = i; j < array.size(); i++) {
+                    if (minPos == -1 || array.get(j).getDistance() < minValue) {
+                        minPos = j;
+                        minValue = array.get(j).getDistance();
+                    }
+                }
+                app = array.get(i);
+                array.set(i,array.get(minPos));
+                array.set(minPos,app);
+            }
+        }
+        if (sortBy.equals("flux")) {
+            for (int i = 0; i < array.size(); i++) {
+                minPos = -1;
+                minValue = -1;
+                for (int j = i; j < array.size(); i++) {
+                    if (minPos == -1 || array.get(j).getFlux() < minValue) {
+                        minPos = j;
+                        minValue = array.get(j).getFlux();
+                    }
+                }
+                app = array.get(i);
+                array.set(i,array.get(minPos));
+                array.set(minPos,app);
+            }
+        }
+        throw new NotASortTypeException();
     }
 
 
