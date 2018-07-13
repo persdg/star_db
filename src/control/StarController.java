@@ -180,6 +180,10 @@ public class StarController {
         double min;
         double dist;
 
+        if (!(sortBy.equals("flux") || sortBy.equals("distance"))) {
+            throw new NotASortTypeException();
+        }
+
         ArrayList<Star> listOfStars = listOfStarsInBoundary(id);
         ArrayList<StarInfo> returnedList = new ArrayList<>();
 
@@ -213,7 +217,7 @@ public class StarController {
 
     }
 
-    private ArrayList<StarInfo> sort(ArrayList<StarInfo> array, String sortBy) throws NotASortTypeException {
+    private ArrayList<StarInfo> sort(ArrayList<StarInfo> array, String sortBy) {
 
         StarInfo app;
         int minPos;
@@ -223,7 +227,7 @@ public class StarController {
             for (int i = 0; i < array.size(); i++) {
                 minPos = -1;
                 minValue = -1;
-                for (int j = i; j < array.size(); i++) {
+                for (int j = i; j < array.size(); j++) {
                     if (minPos == -1 || array.get(j).getDistance() < minValue) {
                         minPos = j;
                         minValue = array.get(j).getDistance();
@@ -233,12 +237,13 @@ public class StarController {
                 array.set(i,array.get(minPos));
                 array.set(minPos,app);
             }
+            return array;
         }
         if (sortBy.equals("flux")) {
             for (int i = 0; i < array.size(); i++) {
                 minPos = -1;
                 minValue = -1;
-                for (int j = i; j < array.size(); i++) {
+                for (int j = i; j < array.size(); j++) {
                     if (minPos == -1 || array.get(j).getFlux() < minValue) {
                         minPos = j;
                         minValue = array.get(j).getFlux();
@@ -249,7 +254,7 @@ public class StarController {
                 array.set(minPos,app);
             }
         }
-        throw new NotASortTypeException();
+        return array;
     }
 
 

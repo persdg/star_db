@@ -13,22 +13,22 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class Main /*extends Application*/ {
+public class Main extends Application {
 
-    /*@Override
-    public void start(Stage primaryStage) throws Exception{
+    @Override
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(
-                getClass().getResource("../fxml/main_menu.fxml"));
+                getClass().getResource("../fxml/Login.fxml"));
         primaryStage.setTitle("Progetto Star_DB");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
-    }*/
+    }
 
 
     public static void main(String[] args) {
-        //launch(args);
+        launch(args);
 
-        try {
+        /*try {
             StarController SC = new StarController();
             ArrayList<StarInfo> listStarInfo = SC.Distance(45, "distance");
 
@@ -43,5 +43,7 @@ public class Main /*extends Application*/ {
 
 
 
+    }
+    */
     }
 }

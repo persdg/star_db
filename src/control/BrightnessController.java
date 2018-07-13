@@ -20,8 +20,8 @@ public class BrightnessController {
 
         ArrayList<Filament> array;
 
-        if (brightness < 0) throw new NegativeValuesException(); //stampare a schermo messaggio eccezione
-        if(minEllipticity >= maxEllipticity) throw new EllipticityException(); //stampare a schermo messaggio eccezione
+        if (brightness < 0) {throw new NegativeValuesException();}
+        if(minEllipticity >= maxEllipticity) {throw new EllipticityException();}
         contrast = 1 + (brightness/100);
         FilamentRepository FR = new FilamentRepository();
         array = FR.contrastEllipticityFilament(minEllipticity, maxEllipticity, contrast);

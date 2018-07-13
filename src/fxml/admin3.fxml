@@ -31,5 +31,7 @@
       <TextField fx:id="first" layoutX="262.0" layoutY="169.0" prefHeight="25.0" prefWidth="139.0" />
       <TextField fx:id="last" layoutX="262.0" layoutY="248.0" prefHeight="25.0" prefWidth="139.0" />
       <Button layoutX="461.0" layoutY="306.0" mnemonicParsing="false" onAction="#inserisci" text="Inserisci" />
+      <Label fx:id="lab" layoutX="191.0" layoutY="323.0" textFill="RED" />
+      <Button fx:id="GoBack" layoutX="526.0" layoutY="352.0" mnemonicParsing="false" text="Torna" onAction="#goBack" />
    </children>
 </AnchorPane>

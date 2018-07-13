@@ -8,10 +8,15 @@ import exception.NegativeValuesException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import persistence.FilamentRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -26,12 +31,16 @@ public class sampleBoundary {
     @FXML
     private TableView listaFilamenti;
     @FXML
+    private Button GoBack;
+    @FXML
     private Label label;
     @FXML
     protected void handleButtonAction(){
         i=i+20;
         ricercaContrastoEllitticita();
     }
+    @FXML
+    private Label eccezioni;
 
     private int i=1;
 
@@ -67,6 +76,9 @@ public class sampleBoundary {
     public void ricercaContrastoEllitticita(){
 
         try{
+
+            eccezioni.setText("");
+
             String contenutoCombo1 = combo1.getSelectionModel().getSelectedItem();
             String contenutoCombo2 = combo2.getSelectionModel().getSelectedItem();
             String bri = brillanza.getText();
@@ -88,9 +100,9 @@ public class sampleBoundary {
 
 
     } catch(EllipticityException ee){
-            System.out.println("AA");
+            eccezioni.setText("INSERIRE RANGE VALIDI");
         } catch (NegativeValuesException nve){
-            System.out.println("no");
+            eccezioni.setText("INSERIRE VALORI POSITIVI");
         }
 
 
@@ -124,6 +136,38 @@ public class sampleBoundary {
 
         }
         label.setText("percentuale: "+String.valueOf(percentage)+"%");
+    }
+
+    public void goBack() {
+
+        try {
+            if (GlobalVar.USERTYPE) {
+
+                Stage stage = (Stage) GoBack.getScene().getWindow();
+                stage.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/principaleAdmin.fxml"));
+                Parent root1 = null;
+                root1 = (Parent) fxmlLoader.load();
+                Stage stage1 = new Stage();
+                stage1.setTitle("UTENTE");
+                stage1.setScene(new Scene(root1, 800, 400));
+                stage1.show();
+            } else {
+
+                GlobalVar.USERTYPE = false;
+                Stage stage = (Stage) GoBack.getScene().getWindow();
+                stage.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/principaleUtente.fxml"));
+                Parent root1 = null;
+                root1 = (Parent) fxmlLoader.load();
+                Stage stage1 = new Stage();
+                stage1.setTitle("UTENTE");
+                stage1.setScene(new Scene(root1, 800, 400));
+                stage1.show();
+            }
+
+
+        }catch(IOException e){}
     }
 
 }

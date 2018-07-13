@@ -1,80 +1,55 @@
 package boundary;
 
-import control.FilamentController;
-import control.StarController;
-import entity.FilamentInfo;
+
+import exception.FilamentNotFoundException;
 import exception.NegativeValuesException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
+import javafx.scene.control.*;
+import control.SegmentController;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class req10Boundary {
+
+public class req11Boundary {
+
     @FXML
-    private TextField Base;
+    private TextField idView;
     @FXML
-    private TextField Altezza;
+    private Label firstDistView;
     @FXML
-    private TextField X;
+    private Label lastDistView;
     @FXML
-    private TextField Y;
-    @FXML
-    private Label STFC;
-    @FXML
-    private Label FCPROTO;
-    @FXML
-    private Label FCPRE;
-    @FXML
-    private Label FCU;
-    @FXML
-    private Label ST;
-    @FXML
-    private Label CPROTO;
-    @FXML
-    private Label CPRE;
-    @FXML
-    private Label CU;
-    @FXML
-    private Label ERR;
+    private Label negativeValuesError;
     @FXML
     private Button GoBack;
 
+    public void ricercaStrutturaEstesa() {
 
-    public void ricercaRegione() {
+        String ID = idView.getText();
 
         try {
-
-            String B = Base.getText();
-            String A = Altezza.getText();
-            String XX = X.getText();
-            String YY = Y.getText();
-
-            StarController SC = new StarController();
-
-            double [] array = SC.starsInRectControl(Float.parseFloat(YY),
-                    Float.parseFloat(XX), Float.parseFloat(B),Float.parseFloat(A));
-
-            ST.setText(String.valueOf(array[0]));
-            CPROTO.setText(String.valueOf(array[1]));
-            CPRE.setText(String.valueOf(array[2]));
-            CU.setText(String.valueOf(array[3]));
-            STFC.setText(String.valueOf(array[4]));
-            FCPROTO.setText(String.valueOf(array[5]));
-            FCPRE.setText(String.valueOf(array[6]));
-            FCU.setText(String.valueOf(array[7]));
+            negativeValuesError.setText("");
 
 
-        }catch(NegativeValuesException nve){
-            ERR.setText("INSERIRE VALORI POSITIVI");
+            SegmentController SC = new SegmentController();
+            double[] values = SC.extremesDistances(Integer.parseInt(ID));
+
+
+            lastDistView.setText(String.valueOf(values[0]));
+            firstDistView.setText(String.valueOf(values[1]));
+
+        } catch (NegativeValuesException e) {
+            negativeValuesError.setText("INSERIRE VALORI POSITIVI");
+        }catch(FilamentNotFoundException fnfe){
+            negativeValuesError.setText("FILAMENTO NON TROVATO");
         }
-
-}
+    }
 
     public void goBack() {
 
@@ -107,4 +82,6 @@ public class req10Boundary {
 
         }catch(IOException e){}
     }
+
+
 }

@@ -30,6 +30,9 @@
       <TextField fx:id="nome" layoutX="205.0" layoutY="77.0" />
       <TextField fx:id="satellite" layoutX="205.0" layoutY="147.0" />
       <TextField fx:id="banda" layoutX="205.0" layoutY="213.0" />
-      <Button layoutX="415.0" layoutY="271.0" mnemonicParsing="false" onAction="#inserisci" text="Inserisci" />
+      <Button layoutX="456.0" layoutY="147.0" mnemonicParsing="false" onAction="#inserisci" text="Inserisci" />
+      <Label fx:id="lab" layoutX="266.0" layoutY="305.0" textFill="#fc0000" />
+      <Label fx:id="lab2" layoutX="266.0" layoutY="349.0" textFill="RED" />
+      <Button fx:id="GoBack" layoutX="526.0" layoutY="345.0" mnemonicParsing="false" text="Torna" onAction="#goBack"/>
    </children>
 </AnchorPane>

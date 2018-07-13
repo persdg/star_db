@@ -225,7 +225,7 @@ public class FileImporter {
         }
     }
 
-    public void fileImport(String path) {
+    public void fileImport(String path)  {
 
         final String filaments_check = "IDFIL,NAME,TOTAL_FLUX,MEAN_DENS,MEAN_TEMP,ELLIPTICITY,CONTRAST,SATELLITE,INSTRUMENT";
         final String boundaries_check = "IDFIL,GLON_CONT,GLAT_CONT";
@@ -268,9 +268,8 @@ public class FileImporter {
                 System.out.println((t2-t1)/1000000000 + "secondi");
 
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("FileNotFound: Couldn't locate" + path);
-        } catch (IOException | SQLException e) {
+        } catch (FileNotFoundException e){System.out.println("File not found");}
+        catch (IOException | SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             System.out.println("Couldn't locate the database driver.");

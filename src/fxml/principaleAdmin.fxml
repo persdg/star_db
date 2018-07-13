@@ -17,20 +17,23 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="go_to_req5" layoutX="68.0" layoutY="113.0" mnemonicParsing="false" onAction="#goToreq5" text="Requisito5" />
-      <Button fx:id="go_to_req6" layoutX="68.0" layoutY="155.0" mnemonicParsing="false" onAction="#goToReq6" text="Requisito6" />
-      <Button fx:id="go_to_req8" layoutX="68.0" layoutY="200.0" mnemonicParsing="false" onAction="#goToReq8" text="Requisito8" />
-      <Button fx:id="go_to_req9" layoutX="68.0" layoutY="245.0" mnemonicParsing="false" onAction="#goToReq9" text="Requisito9" />
-      <Button fx:id="go_to_req10" layoutX="65.0" layoutY="293.0" mnemonicParsing="false" onAction="#goToReq10" text="Requisito10" />
-      <Button fx:id="go_to_req12" layoutX="65.0" layoutY="335.0" mnemonicParsing="false" onAction="#goToReq12" text="Requisito12" />
-      <Label layoutX="329.0" layoutY="55.0" text="Ed in piu possono utilizzare:">
+      <Button fx:id="go_to_req5" layoutX="68.0" layoutY="113.0" mnemonicParsing="false" onAction="#goToreq5" text="Requisito 5" />
+      <Button fx:id="go_to_req6" layoutX="68.0" layoutY="155.0" mnemonicParsing="false" onAction="#goToReq6" text="Requisito 6" />
+      <Button fx:id="go_to_req8" layoutX="68.0" layoutY="200.0" mnemonicParsing="false" onAction="#goToReq8" text="Requisito 8" />
+      <Button fx:id="go_to_req9" layoutX="68.0" layoutY="245.0" mnemonicParsing="false" onAction="#goToReq9" text="Requisito 9" />
+      <Button fx:id="go_to_req10" layoutX="65.0" layoutY="293.0" mnemonicParsing="false" onAction="#goToReq10" text="Requisito 10" />
+      <Button fx:id="go_to_req12" layoutX="65.0" layoutY="335.0" mnemonicParsing="false" onAction="#goToReq12" text="Requisito 12" />
+      <Label layoutX="329.0" layoutY="55.0" text="Funzioni di inserimento ed import:">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="go_to_nuovoFile" layoutX="386.0" layoutY="113.0" mnemonicParsing="false" onAction="#goToNuovoFile" prefHeight="25.0" prefWidth="72.0" text="NuovoFile" />
-      <Button fx:id="go_to_nuovoUtente" layoutX="379.0" layoutY="168.0" mnemonicParsing="false" onAction="#goToNuovoUtente" text="NuovoUtente" />
-      <Button fx:id="go_to_insSatellite" layoutX="363.0" layoutY="225.0" mnemonicParsing="false" onAction="#goToInsSatellite" text="InserireDatiSatellite" />
-      <Button fx:id="go_to_insStrumenti" layoutX="358.0" layoutY="281.0" mnemonicParsing="false" onAction="#goToInsStrumenti" text="InserireDatiStrumenti" />
+      <Button fx:id="go_to_nuovoFile" layoutX="378.0" layoutY="113.0" mnemonicParsing="false" onAction="#goToNuovoFile" prefHeight="25.0" prefWidth="88.0" text="Nuovo File" />
+      <Button fx:id="go_to_nuovoUtente" layoutX="379.0" layoutY="168.0" mnemonicParsing="false" onAction="#goToNuovoUtente" text="Nuovo Utente" />
+      <Button fx:id="go_to_insSatellite" layoutX="363.0" layoutY="225.0" mnemonicParsing="false" onAction="#goToInsSatellite" text="Inserire Dati Satellite" />
+      <Button fx:id="go_to_insStrumenti" layoutX="358.0" layoutY="281.0" mnemonicParsing="false" onAction="#goToInsStrumenti" text="Inserire Dati Strumenti" />
+      <Button fx:id="go_to_req7" layoutX="206.0" layoutY="113.0" mnemonicParsing="false" onAction="#goToReq7" text="Requisito 7" />
+      <Button fx:id="go_to_req11" layoutX="202.0" layoutY="156.0" mnemonicParsing="false" onAction="#goToReq11" text="Requesito 11" />
+      <Button fx:id="LogOut" layoutX="219.0" layoutY="335.0" mnemonicParsing="false" onAction="#logOut" text="LOG OUT" />
    </children>
 </AnchorPane>

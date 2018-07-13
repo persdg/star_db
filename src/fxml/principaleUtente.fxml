@@ -17,11 +17,14 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="go_to_req5" layoutX="235.0" layoutY="89.0" mnemonicParsing="false" onAction="#goToReq5" text="Requisito5" />
-      <Button fx:id="go_to_req6" layoutX="235.0" layoutY="138.0" mnemonicParsing="false" onAction="#goToReq6" text="Requisito6" />
-      <Button fx:id="go_to_req8" layoutX="235.0" layoutY="188.0" mnemonicParsing="false" onAction="#goToReq8" text="Requisito8" />
-      <Button fx:id="go_to_req9" layoutX="235.0" layoutY="234.0" mnemonicParsing="false" onAction="#goToReq9" text="Requisito9" />
-      <Button fx:id="go_to_req10" layoutX="232.0" layoutY="286.0" mnemonicParsing="false" onAction="#goToReq10" text="Requisito10" />
-      <Button fx:id="go_to_req12" layoutX="232.0" layoutY="336.0" mnemonicParsing="false" onAction="#goToReq12" text="Requisito12" />
+      <Button fx:id="go_to_req5" layoutX="235.0" layoutY="89.0" mnemonicParsing="false" onAction="#goToReq5" text="Requisito 5" />
+      <Button fx:id="go_to_req6" layoutX="235.0" layoutY="138.0" mnemonicParsing="false" onAction="#goToReq6" text="Requisito 6" />
+      <Button fx:id="go_to_req8" layoutX="235.0" layoutY="188.0" mnemonicParsing="false" onAction="#goToReq8" text="Requisito 8" />
+      <Button fx:id="go_to_req9" layoutX="235.0" layoutY="234.0" mnemonicParsing="false" onAction="#goToReq9" text="Requisito 9" />
+      <Button fx:id="go_to_req10" layoutX="232.0" layoutY="286.0" mnemonicParsing="false" onAction="#goToReq10" text="Requisito 10" />
+      <Button fx:id="go_to_req12" layoutX="232.0" layoutY="336.0" mnemonicParsing="false" onAction="#goToReq12" text="Requisito 12" />
+      <Button fx:id="go_to_req7" layoutX="368.0" layoutY="89.0" mnemonicParsing="false" onAction="#goToReq7" text="Requisito 7" />
+      <Button fx:id="go_to_req11" layoutX="368.0" layoutY="138.0" mnemonicParsing="false" onAction="#goToReq11" text="Requisito 11" />
+      <Button fx:id="LogOut" layoutX="94.0" layoutY="188.0" mnemonicParsing="false" onAction="#logOut" text="LOG OUT" />
    </children>
 </AnchorPane>

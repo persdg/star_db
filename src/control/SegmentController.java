@@ -3,11 +3,15 @@ package control;
 import entity.BoundaryPoint;
 import entity.SegmentPoint;
 
+import exception.FilamentNotFoundException;
 import persistence.BoundaryRepository;
 import persistence.SegmentRepository;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import exception.NegativeValuesException;
+import exception.FilamentNotFoundException;
 
 
 public class SegmentController{
@@ -20,9 +24,9 @@ public class SegmentController{
 
 
 
-    public double[] extremesDistances(int idbranch) throws NegativeValuesException {
+    public double[] extremesDistances(int idbranch) throws NegativeValuesException, FilamentNotFoundException {
 
-        if(idbranch <= 0) throw new NegativeValuesException();
+        if(idbranch <= 0) {throw new NegativeValuesException();}
 
         BoundaryRepository BR = new BoundaryRepository();
         SegmentRepository SR = new SegmentRepository();
@@ -30,6 +34,7 @@ public class SegmentController{
 
         extremesList = SR.segmentExtremes(idbranch);// list of extremes
         boundaryList = BR.segmentBoundary(idbranch);// list of boundary points
+
 
         SP = extremesList.get(0); //max num_prog
 

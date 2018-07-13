@@ -24,6 +24,10 @@ public class principaleAdminBoundary{
     @FXML
     private Button go_to_req12;
     @FXML
+    private Button go_to_req7;
+    @FXML
+    private Button go_to_req11;
+    @FXML
     private Button go_to_nuovoFile;
     @FXML
     private Button go_to_nuovoUtente;
@@ -31,6 +35,8 @@ public class principaleAdminBoundary{
     private Button go_to_insSatellite;
     @FXML
     private Button go_to_insStrumenti;
+    @FXML
+    private Button LogOut;
 
 
 
@@ -132,7 +138,7 @@ public class principaleAdminBoundary{
 
             Stage stage = (Stage) go_to_req12.getScene().getWindow();
             stage.close();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/req5.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/req12.fxml"));
             Parent root1 = null;
             root1 = (Parent) fxmlLoader.load();
             Stage stage1 = new Stage();
@@ -215,5 +221,59 @@ public class principaleAdminBoundary{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void goToReq7() {
+        try {
+
+            Stage stage = (Stage) go_to_req7.getScene().getWindow();
+
+            stage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/req7.fxml"));
+            Parent root1 = null;
+            root1 = (Parent) fxmlLoader.load();
+            Stage stage1 = new Stage();
+            stage1.setTitle("UTENTE");
+            stage1.setScene(new Scene(root1,800,400));
+            stage1.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToReq11() {
+        try {
+
+            Stage stage = (Stage) go_to_req11.getScene().getWindow();
+
+            stage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/req11.fxml"));
+            Parent root1 = null;
+            root1 = (Parent) fxmlLoader.load();
+            Stage stage1 = new Stage();
+            stage1.setTitle("UTENTE");
+            stage1.setScene(new Scene(root1,800,400));
+            stage1.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void logOut() throws Exception {
+
+        Stage stage = (Stage) LogOut.getScene().getWindow();
+        stage.close();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/Login.fxml"));
+        Parent root = null;
+        root = (Parent) fxmlLoader.load();
+        Stage stage1 = new Stage();
+        stage1.setTitle("Progetto Star_DB");
+        stage1.setScene(new Scene(root, 600, 400));
+        stage1.show();
+
     }
 }

@@ -13,35 +13,61 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="93.0" layoutY="89.0" text="Base">
+      <Label layoutX="60.0" layoutY="65.0" text="Base">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField  fx:id="Base" layoutX="226.0" layoutY="89.0" prefHeight="25.0" prefWidth="137.0" />
-      <Label layoutX="93.0" layoutY="169.0" text="Altezza">
+      <TextField fx:id="Base" layoutX="117.0" layoutY="65.0" prefHeight="25.0" prefWidth="137.0" />
+      <Label layoutX="51.0" layoutY="114.0" text="Altezza">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="Altezza" layoutX="226.0" layoutY="169.0" prefHeight="25.0" prefWidth="137.0" />
-      <Label layoutX="93.0" layoutY="255.0" text="Centroide">
+      <TextField fx:id="Altezza" layoutX="117.0" layoutY="114.0" prefHeight="25.0" prefWidth="137.0" />
+      <Label layoutX="42.0" layoutY="188.0" text="Centroide">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="X" layoutX="245.0" layoutY="255.0" prefHeight="25.0" prefWidth="40.0" />
-      <Button layoutX="422.0" layoutY="306.0" mnemonicParsing="false" onAction="#ricercaRegione" text="Ricerca" />
-      <Label layoutX="221.0" layoutY="255.0" text="X">
+      <TextField fx:id="X" layoutX="159.0" layoutY="188.0" prefHeight="25.0" prefWidth="40.0" />
+      <Button layoutX="424.0" layoutY="89.0" mnemonicParsing="false" onAction="#ricercaRegione" text="Ricerca" />
+      <Label layoutX="140.0" layoutY="188.0" text="X">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="309.0" layoutY="255.0" text="Y">
+      <Label layoutX="226.0" layoutY="188.0" text="Y">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="Y" layoutX="334.0" layoutY="255.0" prefHeight="25.0" prefWidth="40.0" />
+      <TextField fx:id="Y" layoutX="243.0" layoutY="188.0" prefHeight="25.0" prefWidth="40.0" />
+      <Label layoutX="42.0" layoutY="284.0" text="Stelle Totali" />
+      <Label layoutX="196.0" layoutY="284.0" text="\% Protostelle" />
+      <Label layoutX="333.0" layoutY="284.0" text="\% Prestelle" />
+      <Label layoutX="451.0" layoutY="284.0" text="\% Unbound" />
+      <Label layoutX="18.0" layoutY="251.0" text="Stelle nei contorni dei filamenti:" />
+      <Label layoutX="18.0" layoutY="315.0" text="Stelle fuori dai contorni dei filamenti:" />
+      <Label layoutX="42.0" layoutY="339.0" text="Stelle Totali" />
+      <Label layoutX="200.0" layoutY="339.0" text="\%Protostelle" />
+      <Label layoutX="335.0" layoutY="339.0" text="\%Prestelle" />
+      <Label layoutX="469.0" layoutY="339.0" text="\%Unbond" />
+      <Label layoutX="131.0" layoutY="284.0" />
+      <Label fx:id="STFC" layoutX="131.0" layoutY="339.0" />
+      <Label fx:id="FCPROTO" layoutX="286.0" layoutY="339.0" />
+      <Label fx:id="FCPRE" layoutX="410.0" layoutY="339.0" />
+      <Label fx:id="FCU" layoutX="540.0" layoutY="339.0" />
+      <Label fx:id="ST" layoutX="131.0" layoutY="284.0" />
+      <Label fx:id="CPROTO" layoutX="283.0" layoutY="284.0" />
+      <Label fx:id="CPRE" layoutX="403.0" layoutY="284.0" />
+      <Label fx:id="CU" layoutX="540.0" layoutY="284.0" />
+      <Label fx:id="ERR" layoutX="437.0" layoutY="180.0" textFill="RED" />
+      <Button fx:id="GoBack" layoutX="540.0" layoutY="361.0" mnemonicParsing="false" onAction="#goBack" text="Torna" />
+      <Label layoutX="130.0" layoutY="33.0" text="Dati Rettangolo">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

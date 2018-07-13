@@ -199,7 +199,7 @@ public class UserRepository {
             st = conn.prepareStatement(query);
             st.setString(1,username);
             st.setString(2,password);
-            st.executeQuery();
+            rs = st.executeQuery();
 
             if(rs.next()) {
                 return rs.getBoolean(1);

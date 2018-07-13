@@ -28,5 +28,7 @@
       <TextField fx:id="NomeFilamento" layoutX="199.0" layoutY="177.0" prefHeight="25.0" prefWidth="149.0" />
       <Button layoutX="403.0" layoutY="177.0" mnemonicParsing="false" onAction="#ricercaFilamentoNome" text="RicercaNome" />
       <TableView fx:id="listaElementi" layoutX="93.0" layoutY="242.0" prefHeight="62.0" prefWidth="415.0" />
+      <Label fx:id="NegativeValues" layoutX="286.0" layoutY="337.0" textFill="#ff0505" />
+      <Button fx:id="GoBack" layoutX="500" layoutY="350" mnemonicParsing="false" text="Torna" onAction="#goBack"/>
    </children>
 </AnchorPane>

@@ -2,22 +2,26 @@ package boundary;
 
 
 import control.FilamentController;
-import entity.Filament;
 import entity.FilamentInfo;
 
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import exception.NegativeValuesException;
+
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 
-import persistence.FilamentRepository;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import boundary.GlobalVar;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 
 public class req5Boundary{
 
@@ -27,17 +31,27 @@ public class req5Boundary{
     private TextField NomeFilamento;
     @FXML
     private TableView listaElementi;
+    @FXML
+    private Label NegativeValues;
+    @FXML
+    private Button GoBack;
 
 
     public void ricercaFilamentoID() {
 
-        String ID = IDFilamento.getText();
+        try {
+            NegativeValues.setText("");
 
-        FilamentController FC = new FilamentController() ;
+            String ID = IDFilamento.getText();
 
-        FilamentInfo u = FC.filamentId(Integer.parseInt(ID));
+            FilamentController FC = new FilamentController();
 
-        eseguiMetodo(u);
+            FilamentInfo u = FC.filamentId(Integer.parseInt(ID));
+
+            if(u == null){NegativeValues.setText("FILAMENTO NON TROVATO");}
+
+            eseguiMetodo(u);
+        }catch(NegativeValuesException nve){NegativeValues.setText("INSERIRE ID MAGGIORI DI 0");}
     }
 
     public void ricercaFilamentoNome() {
@@ -47,6 +61,8 @@ public class req5Boundary{
         FilamentController FR = new FilamentController() ;
 
         FilamentInfo u = FR.filamentName(name);
+
+        if(u == null){NegativeValues.setText("FILAMENTO NON TROVATO");}
 
         eseguiMetodo(u);
 
@@ -101,6 +117,38 @@ public class req5Boundary{
                     );
             listaElementi.setItems(filamento);
         }
+    }
+
+    public void goBack() {
+
+        try {
+            if (GlobalVar.USERTYPE) {
+
+                Stage stage = (Stage) GoBack.getScene().getWindow();
+                stage.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/principaleAdmin.fxml"));
+                Parent root1 = null;
+                root1 = (Parent) fxmlLoader.load();
+                Stage stage1 = new Stage();
+                stage1.setTitle("UTENTE");
+                stage1.setScene(new Scene(root1, 800, 400));
+                stage1.show();
+            } else {
+
+                GlobalVar.USERTYPE = false;
+                Stage stage = (Stage) GoBack.getScene().getWindow();
+                stage.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/principaleUtente.fxml"));
+                Parent root1 = null;
+                root1 = (Parent) fxmlLoader.load();
+                Stage stage1 = new Stage();
+                stage1.setTitle("UTENTE");
+                stage1.setScene(new Scene(root1, 800, 400));
+                stage1.show();
+            }
+
+
+        }catch(IOException e){}
     }
 
 

@@ -2,6 +2,7 @@ package persistence;
 
 import entity.Filament;
 import entity.SegmentPoint;
+import exception.FilamentNotFoundException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
